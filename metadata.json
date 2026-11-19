@@ -1,0 +1,8 @@
+{
+  "name": "JUST BURGER",
+  "description": "JUST BURGER — Big Flavor. No Compromise. Online burger ordering, custom meal builder, real-time kitchen display, and restaurant management platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
