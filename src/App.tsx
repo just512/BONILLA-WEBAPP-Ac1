@@ -59,7 +59,7 @@ const AppRoutes: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-[#171717]">
+    <div className="min-h-screen flex flex-col bg-white text-[#171717] dark:bg-[#0F0F0F] dark:text-neutral-100 transition-colors duration-200">
       <Navbar />
       <main className="flex-1">{content}</main>
       <Footer />

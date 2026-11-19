@@ -39,7 +39,7 @@ export const AdminOverviewTab: React.FC = () => {
   }, [realtimeTick]);
 
   if (loading) {
-    return <div className="h-96 rounded-2xl bg-neutral-100 animate-pulse" />;
+    return <div className="h-96 rounded-2xl bg-neutral-100 dark:bg-neutral-800 animate-pulse" />;
   }
 
   if (!data) return null;
@@ -62,20 +62,24 @@ export const AdminOverviewTab: React.FC = () => {
         {kpiCards.map((k) => (
           <div
             key={k.label}
-            className={`rounded-xl border p-4 ${
+            className={`rounded-xl border p-4 transition-colors ${
               k.alert
-                ? 'border-red-300 bg-red-50'
+                ? 'border-red-300 dark:border-red-900/60 bg-red-50 dark:bg-red-950/40'
                 : k.highlight
-                  ? 'border-[#171717] bg-[#171717] text-white'
-                  : 'border-neutral-200 bg-white'
+                  ? 'border-[#171717] dark:border-neutral-800 bg-[#171717] text-white'
+                  : 'border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A]'
             }`}
           >
-            <p className={`text-xs ${k.highlight ? 'text-neutral-300' : 'text-neutral-500'}`}>
+            <p className={`text-xs ${k.highlight ? 'text-neutral-300' : 'text-neutral-500 dark:text-neutral-400'}`}>
               {k.label}
             </p>
             <p
               className={`font-mono text-xl font-extrabold mt-1 tabular-nums ${
-                k.alert ? 'text-[#D62828]' : k.highlight ? 'text-[#FFC928]' : 'text-[#171717]'
+                k.alert
+                  ? 'text-[#D62828] dark:text-red-400'
+                  : k.highlight
+                    ? 'text-[#FFC928]'
+                    : 'text-[#171717] dark:text-white'
               }`}
             >
               {k.value}
@@ -86,13 +90,15 @@ export const AdminOverviewTab: React.FC = () => {
 
       {/* 7-Day Revenue Bar Chart + Status Breakdown */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-8 rounded-xl border border-neutral-200 bg-white p-6">
+        <div className="lg:col-span-8 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] p-6 transition-colors">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="font-display text-lg font-bold text-[#171717]">
+              <h3 className="font-display text-lg font-bold text-[#171717] dark:text-white">
                 7-Day Revenue Analytics
               </h3>
-              <p className="text-xs text-neutral-500">Daily gross order volume across branches</p>
+              <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                Daily gross order volume across branches
+              </p>
             </div>
           </div>
           <div className="h-52 flex items-end gap-3">
@@ -100,7 +106,7 @@ export const AdminOverviewTab: React.FC = () => {
               const pct = Math.max(4, Math.round((day.revenueCents / maxRev) * 100));
               return (
                 <div key={day.date} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
-                  <span className="font-mono text-[11px] font-semibold text-neutral-600 tabular-nums">
+                  <span className="font-mono text-[11px] font-semibold text-neutral-600 dark:text-neutral-300 tabular-nums">
                     {formatMoney(day.revenueCents, currencySymbol)}
                   </span>
                   <div
@@ -108,7 +114,7 @@ export const AdminOverviewTab: React.FC = () => {
                     style={{ height: `${pct}%` }}
                     title={`${day.date}: ${day.orders} orders`}
                   />
-                  <span className="font-mono text-[10px] text-neutral-400">
+                  <span className="font-mono text-[10px] text-neutral-400 dark:text-neutral-500">
                     {day.date.slice(5)}
                   </span>
                 </div>
@@ -117,16 +123,22 @@ export const AdminOverviewTab: React.FC = () => {
           </div>
         </div>
 
-        <div className="lg:col-span-4 rounded-xl border border-neutral-200 bg-white p-6 space-y-4">
-          <h3 className="font-display text-lg font-bold text-[#171717]">Popular Items</h3>
+        <div className="lg:col-span-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] p-6 space-y-4 transition-colors">
+          <h3 className="font-display text-lg font-bold text-[#171717] dark:text-white">
+            Popular Items
+          </h3>
           {data.popularProducts.length === 0 ? (
-            <p className="text-xs text-neutral-500">No order item sales recorded yet.</p>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              No order item sales recorded yet.
+            </p>
           ) : (
             <div className="space-y-3">
               {data.popularProducts.map((p) => (
                 <div key={p.productName} className="flex items-center justify-between text-sm">
-                  <span className="truncate font-medium text-[#171717] pr-2">{p.productName}</span>
-                  <span className="font-mono text-xs text-neutral-600 shrink-0 tabular-nums">
+                  <span className="truncate font-medium text-[#171717] dark:text-neutral-100 pr-2">
+                    {p.productName}
+                  </span>
+                  <span className="font-mono text-xs text-neutral-600 dark:text-neutral-400 shrink-0 tabular-nums">
                     {p.unitsSold} sold · {formatMoney(p.revenueCents, currencySymbol)}
                   </span>
                 </div>
@@ -135,15 +147,15 @@ export const AdminOverviewTab: React.FC = () => {
           )}
 
           {data.lowStockItems.length > 0 && (
-            <div className="pt-4 border-t border-neutral-200">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#D62828] mb-2">
+            <div className="pt-4 border-t border-neutral-200 dark:border-neutral-800">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#D62828] dark:text-red-400 mb-2">
                 Low Stock Alerts
               </h4>
               <ul className="space-y-1.5 text-xs">
                 {data.lowStockItems.map((item) => (
-                  <li key={item.id} className="flex justify-between text-neutral-700">
+                  <li key={item.id} className="flex justify-between text-neutral-700 dark:text-neutral-300">
                     <span className="truncate pr-2">{item.itemName}</span>
-                    <span className="font-mono font-bold text-[#D62828] tabular-nums">
+                    <span className="font-mono font-bold text-[#D62828] dark:text-red-400 tabular-nums">
                       {item.quantityOnHand} {item.unit}
                     </span>
                   </li>
@@ -155,16 +167,18 @@ export const AdminOverviewTab: React.FC = () => {
       </div>
 
       {/* Recent Orders */}
-      <div className="rounded-xl border border-neutral-200 bg-white overflow-hidden">
-        <div className="px-6 py-4 border-b border-neutral-200">
-          <h3 className="font-display text-lg font-bold text-[#171717]">Recent Orders</h3>
+      <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] overflow-hidden transition-colors">
+        <div className="px-6 py-4 border-b border-neutral-200 dark:border-neutral-800">
+          <h3 className="font-display text-lg font-bold text-[#171717] dark:text-white">
+            Recent Orders
+          </h3>
         </div>
         {data.recentOrders.length === 0 ? (
-          <p className="p-6 text-sm text-neutral-500">No orders placed yet.</p>
+          <p className="p-6 text-sm text-neutral-500 dark:text-neutral-400">No orders placed yet.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
-              <thead className="bg-neutral-50 text-xs text-neutral-500 border-b border-neutral-200">
+              <thead className="bg-neutral-50 dark:bg-neutral-900/60 text-xs text-neutral-500 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-800">
                 <tr>
                   <th className="px-6 py-3 font-semibold">Order #</th>
                   <th className="px-6 py-3 font-semibold">Customer</th>
@@ -173,14 +187,18 @@ export const AdminOverviewTab: React.FC = () => {
                   <th className="px-6 py-3 font-semibold text-right">Total</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-neutral-100">
+              <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
                 {data.recentOrders.map((o) => (
-                  <tr key={o.id} className="hover:bg-neutral-50">
-                    <td className="px-6 py-3 font-mono font-semibold text-[#171717]">{o.orderNumber}</td>
-                    <td className="px-6 py-3">{o.customerName}</td>
-                    <td className="px-6 py-3 text-neutral-500">{o.branchName}</td>
-                    <td className="px-6 py-3 capitalize font-medium">{o.status.replace(/_/g, ' ')}</td>
-                    <td className="px-6 py-3 text-right font-mono font-semibold tabular-nums">
+                  <tr key={o.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors">
+                    <td className="px-6 py-3 font-mono font-semibold text-[#171717] dark:text-white">
+                      {o.orderNumber}
+                    </td>
+                    <td className="px-6 py-3 text-neutral-800 dark:text-neutral-200">{o.customerName}</td>
+                    <td className="px-6 py-3 text-neutral-500 dark:text-neutral-400">{o.branchName}</td>
+                    <td className="px-6 py-3 capitalize font-medium text-neutral-800 dark:text-neutral-200">
+                      {o.status.replace(/_/g, ' ')}
+                    </td>
+                    <td className="px-6 py-3 text-right font-mono font-semibold text-[#171717] dark:text-white tabular-nums">
                       {formatMoney(o.totalCents, currencySymbol)}
                     </td>
                   </tr>

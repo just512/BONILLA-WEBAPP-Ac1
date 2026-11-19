@@ -24,7 +24,8 @@ import {
   reviews,
   storeSettings,
 } from '../db/schema.ts';
-import { AuthRequest, hashPassword, requireAuth, toSafeProfile, verifyPassword } from './auth.ts';
+import { hashPassword, requireAuth, toSafeProfile, verifyPassword } from './auth.ts';
+import type { AuthRequest } from './auth.ts';
 import { evaluateCoupon, getOrCreateCart } from './routes-public.ts';
 import { realtimeHub } from './realtime.ts';
 
@@ -148,7 +149,7 @@ customerRouter.post('/checkout', requireAuth, async (req: AuthRequest, res) => {
 
     if (subtotalCents < branch.minOrderCents) {
       return res.status(400).json({
-        error: `Minimum order for ${branch.name} is $${(branch.minOrderCents / 100).toFixed(2)}.`,
+        error: `Minimum order for ${branch.name} is ₱${(branch.minOrderCents / 100).toFixed(2)}.`,
       });
     }
 

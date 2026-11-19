@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Bell, Menu, ShoppingBag, User, X } from 'lucide-react';
+import { Bell, Menu, Moon, ShoppingBag, Sun, User, X } from 'lucide-react';
 import { useApp } from '../context/AppContext.tsx';
 import { BrandLogo } from './BrandLogo.tsx';
 
 export const Navbar: React.FC = () => {
   const {
+    theme,
+    toggleTheme,
     route,
     navigate,
     user,
@@ -34,10 +36,10 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <div className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200 no-print">
+    <div className="sticky top-0 z-40 bg-white/95 dark:bg-[#0F0F0F]/95 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 no-print transition-colors duration-200">
       {/* Slim Dismissible Announcement Bar */}
       {showAnnouncement && (
-        <div className="bg-[#171717] text-white text-xs py-2 px-4 flex items-center justify-center relative">
+        <div className="bg-[#171717] dark:bg-[#1A1A1A] text-white text-xs py-2 px-4 flex items-center justify-center relative border-b border-neutral-800">
           <div className="max-w-7xl mx-auto flex items-center gap-3 pr-6 truncate">
             <span className="truncate font-medium text-[#FFF8ED]">{announcement?.text}</span>
             <button
@@ -68,7 +70,7 @@ export const Navbar: React.FC = () => {
         </button>
 
         {/* Zone 2: Single-line Nav Links */}
-        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-neutral-600">
+        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-neutral-600 dark:text-neutral-300">
           {navLinks.map((link) => {
             const active = currentPath === link.path;
             return (
@@ -77,8 +79,8 @@ export const Navbar: React.FC = () => {
                 onClick={() => handleLinkClick(link.path)}
                 className={`whitespace-nowrap shrink-0 py-1 border-b-2 transition-colors cursor-pointer ${
                   active
-                    ? 'text-[#171717] border-[#D62828] font-semibold'
-                    : 'border-transparent hover:text-[#171717] hover:border-neutral-300'
+                    ? 'text-[#171717] dark:text-white border-[#D62828] font-semibold'
+                    : 'border-transparent hover:text-[#171717] dark:hover:text-white hover:border-neutral-300 dark:hover:border-neutral-700'
                 }`}
               >
                 {link.label}
@@ -90,8 +92,8 @@ export const Navbar: React.FC = () => {
               onClick={() => handleLinkClick('/admin')}
               className={`whitespace-nowrap shrink-0 py-1 border-b-2 transition-colors cursor-pointer ${
                 currentPath.startsWith('/admin')
-                  ? 'text-[#D62828] border-[#D62828] font-semibold'
-                  : 'text-[#D62828] border-transparent hover:border-[#D62828]'
+                  ? 'text-[#D62828] dark:text-[#FFC928] border-[#D62828] font-semibold'
+                  : 'text-[#D62828] dark:text-[#FFC928] border-transparent hover:border-[#D62828]'
               }`}
             >
               Operations
@@ -100,13 +102,23 @@ export const Navbar: React.FC = () => {
         </nav>
 
         {/* Zone 3: Actions */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2.5 shrink-0">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="p-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-[#171717] dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-[#FFC928]" /> : <Moon className="w-4 h-4" />}
+          </button>
+
           {user ? (
             <div className="hidden sm:flex items-center gap-2">
               <button
                 onClick={() => handleLinkClick('/account?tab=notifications')}
                 aria-label="Notifications"
-                className="relative p-2 text-neutral-700 hover:text-[#171717] rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer"
+                className="relative p-2 text-neutral-700 dark:text-neutral-300 hover:text-[#171717] dark:hover:text-white rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
               >
                 <Bell className="w-4 h-4" />
                 {unreadCount > 0 && (
@@ -117,7 +129,7 @@ export const Navbar: React.FC = () => {
               </button>
               <button
                 onClick={() => handleLinkClick('/account')}
-                className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-[#171717] hover:bg-neutral-100 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+                className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-[#171717] dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer"
               >
                 <User className="w-4 h-4 text-[#D62828]" />
                 <span className="max-w-[110px] truncate">{user.fullName.split(' ')[0]}</span>
@@ -126,7 +138,7 @@ export const Navbar: React.FC = () => {
           ) : (
             <button
               onClick={() => handleLinkClick('/auth/signin')}
-              className="hidden sm:inline-flex items-center px-3 py-2 text-sm font-medium text-neutral-700 hover:text-[#171717] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              className="hidden sm:inline-flex items-center px-3 py-2 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-[#171717] dark:hover:text-white transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
               Sign In
             </button>
@@ -148,7 +160,7 @@ export const Navbar: React.FC = () => {
           <button
             onClick={() => setMobileMenuOpen((v) => !v)}
             aria-label="Toggle navigation menu"
-            className="md:hidden p-2 text-neutral-700 hover:bg-neutral-100 rounded-lg cursor-pointer"
+            className="md:hidden p-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -157,12 +169,12 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-neutral-200 bg-white px-4 py-4 space-y-2">
+        <div className="md:hidden border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#141414] px-4 py-4 space-y-2">
           {navLinks.map((link) => (
             <button
               key={link.path}
               onClick={() => handleLinkClick(link.path)}
-              className="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-[#171717] hover:bg-[#FFF8ED]"
+              className="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium text-[#171717] dark:text-neutral-100 hover:bg-[#FFF8ED] dark:hover:bg-neutral-800"
             >
               {link.label}
             </button>
@@ -170,16 +182,24 @@ export const Navbar: React.FC = () => {
           {(user?.roleName === 'admin' || user?.roleName === 'staff') && (
             <button
               onClick={() => handleLinkClick('/admin')}
-              className="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-[#D62828] hover:bg-[#FFF8ED]"
+              className="block w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold text-[#D62828] dark:text-[#FFC928] hover:bg-[#FFF8ED] dark:hover:bg-neutral-800"
             >
               Admin & Kitchen Dashboard
             </button>
           )}
-          <div className="pt-2 border-t border-neutral-100 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-[#171717] dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+          >
+            <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-[#FFC928]" /> : <Moon className="w-4 h-4" />}
+          </button>
+          <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800 flex items-center gap-2">
             {user ? (
               <button
                 onClick={() => handleLinkClick('/account')}
-                className="flex-1 py-2.5 px-3 rounded-lg bg-neutral-100 text-sm font-semibold text-[#171717]"
+                className="flex-1 py-2.5 px-3 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-sm font-semibold text-[#171717] dark:text-neutral-100"
               >
                 My Account ({user.fullName.split(' ')[0]})
               </button>
@@ -187,13 +207,13 @@ export const Navbar: React.FC = () => {
               <>
                 <button
                   onClick={() => handleLinkClick('/auth/signin')}
-                  className="flex-1 py-2.5 px-3 rounded-lg border border-neutral-300 text-sm font-semibold text-[#171717]"
+                  className="flex-1 py-2.5 px-3 rounded-lg border border-neutral-300 dark:border-neutral-700 text-sm font-semibold text-[#171717] dark:text-neutral-100"
                 >
                   Sign In
                 </button>
                 <button
                   onClick={() => handleLinkClick('/auth/signup')}
-                  className="flex-1 py-2.5 px-3 rounded-lg bg-[#171717] text-sm font-semibold text-white"
+                  className="flex-1 py-2.5 px-3 rounded-lg bg-[#171717] dark:bg-[#D62828] text-sm font-semibold text-white"
                 >
                   Create Account
                 </button>

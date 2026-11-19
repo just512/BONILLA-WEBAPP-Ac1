@@ -3,6 +3,7 @@
   "appId": "1:817009395099:web:6d18d286e5cdd0eb7a0d3e",
   "apiKey": "AIzaSyAZOnd64Ehwk7aKF1dOqYHuTpRYwnDYmAs",
   "authDomain": "argon-region-gmn89.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-justburger-d66c8339-5466-4245-ba0c-e48c4dfa5cd5",
   "storageBucket": "argon-region-gmn89.firebasestorage.app",
   "messagingSenderId": "817009395099",
   "measurementId": "",

@@ -9,10 +9,12 @@ import {
   LogOut,
   MapPin,
   MessageSquare,
+  Moon,
   Package,
   Settings,
   ShieldAlert,
   Store,
+  Sun,
   Tag,
   UserCheck,
   Users,
@@ -40,7 +42,7 @@ type AdminSection =
   | 'settings';
 
 export const AdminDashboardPage: React.FC = () => {
-  const { user, authReady, navigate, logout } = useApp();
+  const { user, authReady, navigate, logout, theme, toggleTheme } = useApp();
   const [section, setSection] = useState<AdminSection>('overview');
 
   useEffect(() => {
@@ -50,24 +52,32 @@ export const AdminDashboardPage: React.FC = () => {
   }, [authReady, user, navigate]);
 
   if (!authReady) {
-    return <div className="min-h-screen bg-neutral-50 flex items-center justify-center text-sm">Loading...</div>;
+    return (
+      <div className="min-h-screen bg-neutral-50 dark:bg-[#0F0F0F] dark:text-neutral-200 flex items-center justify-center text-sm transition-colors">
+        Loading...
+      </div>
+    );
   }
 
   if (!user || (user.roleName !== 'admin' && user.roleName !== 'staff')) {
     return (
-      <div className="max-w-lg mx-auto px-4 py-20 text-center space-y-4">
-        <ShieldAlert className="w-12 h-12 text-[#D62828] mx-auto" />
-        <h1 className="font-display text-2xl font-bold text-[#171717]">Access Restricted</h1>
-        <p className="text-sm text-neutral-600">
-          This administrative dashboard is restricted to authorized JUST BURGER staff and
-          administrators.
-        </p>
-        <button
-          onClick={() => navigate('/')}
-          className="px-5 py-2.5 rounded-xl bg-[#171717] text-white text-xs font-semibold cursor-pointer"
-        >
-          Return to Storefront
-        </button>
+      <div className="min-h-screen bg-white dark:bg-[#0F0F0F] transition-colors">
+        <div className="max-w-lg mx-auto px-4 py-20 text-center space-y-4">
+          <ShieldAlert className="w-12 h-12 text-[#D62828] mx-auto" />
+          <h1 className="font-display text-2xl font-bold text-[#171717] dark:text-white">
+            Access Restricted
+          </h1>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+            This administrative dashboard is restricted to authorized JUST BURGER staff and
+            administrators.
+          </p>
+          <button
+            onClick={() => navigate('/')}
+            className="px-5 py-2.5 rounded-xl bg-[#171717] dark:bg-[#D62828] hover:bg-neutral-800 dark:hover:bg-[#B51E1E] text-white text-xs font-semibold cursor-pointer transition-colors"
+          >
+            Return to Storefront
+          </button>
+        </div>
       </div>
     );
   }
@@ -93,9 +103,9 @@ export const AdminDashboardPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-neutral-100 flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-neutral-100 dark:bg-[#0F0F0F] dark:text-neutral-100 flex flex-col lg:flex-row transition-colors duration-200">
       {/* Sidebar Navigation */}
-      <aside className="lg:w-64 bg-[#171717] text-white shrink-0 flex flex-col justify-between no-print">
+      <aside className="lg:w-64 bg-[#171717] text-white shrink-0 flex flex-col justify-between no-print border-r border-transparent dark:border-neutral-800">
         <div>
           <div className="px-5 py-5 border-b border-neutral-800 flex items-center justify-between">
             <BrandLogo inverted />
@@ -149,13 +159,33 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* Main Content Area */}
       <div className="flex-1 min-w-0 flex flex-col">
-        <header className="bg-white border-b border-neutral-200 px-6 py-4 flex items-center justify-between no-print">
-          <div className="text-sm font-medium text-neutral-500">
+        <header className="bg-white dark:bg-[#141414] border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 flex items-center justify-between gap-4 no-print transition-colors">
+          <div className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
             Operations <span className="mx-2">/</span>{' '}
-            <span className="font-display font-bold text-[#171717] capitalize">
+            <span className="font-display font-bold text-[#171717] dark:text-white capitalize">
               {navItems.find((i) => i.id === section)?.label}
             </span>
           </div>
+
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800/80 text-xs font-semibold text-[#171717] dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+          >
+            {theme === 'dark' ? (
+              <>
+                <Sun className="w-4 h-4 text-[#FFC928]" />
+                <span>Light</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-4 h-4 text-neutral-700" />
+                <span>Dark</span>
+              </>
+            )}
+          </button>
         </header>
 
         <main className="p-4 sm:p-6 lg:p-8 flex-1">

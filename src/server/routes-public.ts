@@ -16,13 +16,11 @@ import {
   reviews,
   roles,
   storeSettings,
-  CartCustomizationItem,
-  ComboSelectionPayload,
   loyaltyAccounts,
 } from '../db/schema.ts';
+import type { CartCustomizationItem, ComboSelectionPayload } from '../db/schema.ts';
 import { ensureSeeded } from '../db/seed.ts';
 import {
-  AuthRequest,
   hashPassword,
   optionalAuth,
   signSessionToken,
@@ -31,6 +29,7 @@ import {
   upsertGoogleProfile,
   verifyPassword,
 } from './auth.ts';
+import type { AuthRequest } from './auth.ts';
 import { adminAuth } from '../lib/firebase-admin.ts';
 
 export const publicRouter = Router();
@@ -99,7 +98,7 @@ export async function evaluateCoupon(code: string | null | undefined, subtotalCe
       valid: false,
       discountCents: 0,
       coupon: null,
-      reason: `Minimum order of $${(cp.minOrderCents / 100).toFixed(2)} required for ${cp.code}.`,
+      reason: `Minimum order of ₱${(cp.minOrderCents / 100).toFixed(2)} required for ${cp.code}.`,
     };
   }
   let discountCents = 0;

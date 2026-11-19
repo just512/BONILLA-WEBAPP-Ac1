@@ -17,7 +17,7 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
   const [editingId, setEditingId] = useState<number | null>(null);
   const [name, setName] = useState('');
   const [categoryId, setCategoryId] = useState<number>(1);
-  const [priceDollars, setPriceDollars] = useState('10.99');
+  const [priceDollars, setPriceDollars] = useState('559.00');
   const [description, setDescription] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [imageUrl, setImageUrl] = useState('/src/assets/images/classic_smash_burger_1795056342466.jpg');
@@ -32,7 +32,7 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
   const [optionProdId, setOptionProdId] = useState<number | null>(null);
   const [optGroup, setOptGroup] = useState('Extra Patty & Protein');
   const [optName, setOptName] = useState('');
-  const [optPriceDollars, setOptPriceDollars] = useState('1.50');
+  const [optPriceDollars, setOptPriceDollars] = useState('84.00');
 
   // Category Form State
   const [catName, setCatName] = useState('');
@@ -142,7 +142,7 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
   const resetForm = () => {
     setEditingId(null);
     setName('');
-    setPriceDollars('10.99');
+    setPriceDollars('559.00');
     setDescription('');
     setIngredients('');
     setImageUrl('/src/assets/images/classic_smash_burger_1795056342466.jpg');
@@ -268,27 +268,27 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
     }
   };
 
-  if (loading) return <div className="h-72 rounded-2xl bg-neutral-100 animate-pulse" />;
+  if (loading) return <div className="h-72 rounded-2xl bg-neutral-100 dark:bg-neutral-800 animate-pulse" />;
 
   if (view === 'categories') {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div className="lg:col-span-7 space-y-3">
-          <h2 className="font-display text-xl font-bold text-[#171717]">Categories</h2>
+          <h2 className="font-display text-xl font-bold text-[#171717] dark:text-white">Categories</h2>
           {categories.map((c) => (
             <div
               key={c.id}
-              className="rounded-xl border border-neutral-200 bg-white p-4 flex items-center justify-between gap-4"
+              className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] p-4 flex items-center justify-between gap-4 transition-colors"
             >
               <div className="flex items-center gap-3">
                 <ProductImage
                   src={c.imageUrl}
                   alt={c.name}
-                  className="w-11 h-11 rounded-lg object-cover shrink-0 border border-neutral-200"
+                  className="w-11 h-11 rounded-lg object-cover shrink-0 border border-neutral-200 dark:border-neutral-700"
                 />
                 <div>
-                  <p className="font-semibold text-sm text-[#171717]">{c.name}</p>
-                  <p className="text-xs text-neutral-500">{c.description}</p>
+                  <p className="font-semibold text-sm text-[#171717] dark:text-white">{c.name}</p>
+                  <p className="text-xs text-neutral-500 dark:text-neutral-400">{c.description}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -301,7 +301,9 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                     loadData();
                   }}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer ${
-                    c.isActive ? 'bg-emerald-50 text-emerald-700' : 'bg-neutral-100 text-neutral-500'
+                    c.isActive
+                      ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400'
+                      : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400'
                   }`}
                 >
                   {c.isActive ? 'Active' : 'Hidden'}
@@ -322,32 +324,32 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
 
         <form
           onSubmit={handleCreateCategory}
-          className="lg:col-span-5 rounded-xl border border-neutral-200 bg-white p-6 space-y-4 self-start"
+          className="lg:col-span-5 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] p-6 space-y-4 self-start transition-colors"
         >
-          <h3 className="font-display text-lg font-bold text-[#171717]">Add Category</h3>
+          <h3 className="font-display text-lg font-bold text-[#171717] dark:text-white">Add Category</h3>
           <input
             type="text"
             required
             value={catName}
             onChange={(e) => setCatName(e.target.value)}
             placeholder="Category Name"
-            className="w-full px-3.5 py-2.5 rounded-lg border border-neutral-300 text-sm"
+            className="w-full px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-sm text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
           />
           <textarea
             rows={3}
             value={catDesc}
             onChange={(e) => setCatDesc(e.target.value)}
             placeholder="Category description"
-            className="w-full px-3.5 py-2.5 rounded-lg border border-neutral-300 text-sm"
+            className="w-full px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-sm text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
           />
           <div className="space-y-2">
             <div className="flex items-center gap-3">
               <ProductImage
                 src={catImageUrl}
                 alt="Category preview"
-                className="w-12 h-12 rounded-lg object-cover border border-neutral-200 shrink-0"
+                className="w-12 h-12 rounded-lg object-cover border border-neutral-200 dark:border-neutral-700 shrink-0"
               />
-              <label className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-neutral-300 text-xs font-semibold cursor-pointer hover:bg-neutral-50">
+              <label className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 text-xs font-semibold text-[#171717] dark:text-neutral-200 cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-800">
                 <Upload className="w-3.5 h-3.5 text-[#D62828]" />
                 <span>
                   {catUploadProgress !== null
@@ -364,7 +366,7 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
               </label>
             </div>
             {catUploadProgress !== null && (
-              <div className="h-1.5 w-full rounded-full bg-neutral-200 overflow-hidden">
+              <div className="h-1.5 w-full rounded-full bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
                 <div
                   className="h-full bg-[#D62828] transition-all duration-150"
                   style={{ width: `${catUploadProgress}%` }}
@@ -376,13 +378,13 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
               value={catImageUrl}
               onChange={(e) => setCatImageUrl(e.target.value)}
               placeholder="Or category image URL"
-              className="w-full px-3 py-2 rounded-lg border border-neutral-300 text-xs"
+              className="w-full px-3 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-xs text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
             />
           </div>
           <button
             type="submit"
             disabled={catUploadProgress !== null}
-            className="w-full py-2.5 rounded-lg bg-[#D62828] disabled:opacity-60 text-white text-xs font-semibold cursor-pointer"
+            className="w-full py-2.5 rounded-lg bg-[#D62828] hover:bg-[#B51E1E] disabled:opacity-60 text-white text-xs font-semibold cursor-pointer"
           >
             Create Category
           </button>
@@ -396,17 +398,17 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
       {/* Add / Edit Product Form */}
       <form
         onSubmit={handleSaveProduct}
-        className="rounded-xl border border-neutral-200 bg-white p-6 space-y-4"
+        className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] p-6 space-y-4 transition-colors"
       >
         <div className="flex items-center justify-between">
-          <h2 className="font-display text-lg font-bold text-[#171717]">
+          <h2 className="font-display text-lg font-bold text-[#171717] dark:text-white">
             {editingId ? 'Edit Product' : 'Add New Product'}
           </h2>
           {editingId && (
             <button
               type="button"
               onClick={resetForm}
-              className="text-xs font-semibold text-neutral-500 hover:text-[#171717] cursor-pointer"
+              className="text-xs font-semibold text-neutral-500 dark:text-neutral-400 hover:text-[#171717] dark:hover:text-white cursor-pointer"
             >
               Cancel Edit
             </button>
@@ -420,12 +422,12 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Product Name"
-            className="px-3.5 py-2.5 rounded-lg border border-neutral-300 text-sm"
+            className="px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-sm text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
           />
           <select
             value={categoryId}
             onChange={(e) => setCategoryId(Number(e.target.value))}
-            className="px-3.5 py-2.5 rounded-lg border border-neutral-300 text-sm bg-white"
+            className="px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 text-sm bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100"
           >
             {categories.map((c) => (
               <option key={c.id} value={c.id}>
@@ -440,8 +442,8 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
             required
             value={priceDollars}
             onChange={(e) => setPriceDollars(e.target.value)}
-            placeholder="Price ($)"
-            className="px-3.5 py-2.5 rounded-lg border border-neutral-300 text-sm font-mono"
+            placeholder="Price (₱)"
+            className="px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-sm font-mono text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
           />
         </div>
 
@@ -452,14 +454,14 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Product description..."
-            className="px-3.5 py-2.5 rounded-lg border border-neutral-300 text-sm"
+            className="px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-sm text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
           />
           <textarea
             rows={2}
             value={ingredients}
             onChange={(e) => setIngredients(e.target.value)}
             placeholder="Ingredients list..."
-            className="px-3.5 py-2.5 rounded-lg border border-neutral-300 text-sm"
+            className="px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-sm text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
           />
         </div>
 
@@ -468,9 +470,9 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
             <ProductImage
               src={imageUrl}
               alt="Product preview"
-              className="w-12 h-12 rounded-lg object-cover border border-neutral-200 shrink-0"
+              className="w-12 h-12 rounded-lg object-cover border border-neutral-200 dark:border-neutral-700 shrink-0"
             />
-            <label className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-neutral-300 text-xs font-semibold cursor-pointer hover:bg-neutral-50">
+            <label className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 text-xs font-semibold text-[#171717] dark:text-neutral-200 cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-800">
               <Upload className="w-3.5 h-3.5 text-[#D62828]" />
               <span>
                 {uploadProgress !== null
@@ -490,11 +492,11 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
               placeholder="Or Firebase Storage / image URL"
-              className="flex-1 min-w-[200px] px-3 py-2 rounded-lg border border-neutral-300 text-xs"
+              className="flex-1 min-w-[200px] px-3 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-xs text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
             />
           </div>
           {uploadProgress !== null && (
-            <div className="h-1.5 w-full rounded-full bg-neutral-200 overflow-hidden">
+            <div className="h-1.5 w-full rounded-full bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
               <div
                 className="h-full bg-[#D62828] transition-all duration-150"
                 style={{ width: `${uploadProgress}%` }}
@@ -503,7 +505,7 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
           )}
         </div>
 
-        <div className="flex flex-wrap items-center gap-5 text-xs font-medium text-neutral-700 pt-1">
+        <div className="flex flex-wrap items-center gap-5 text-xs font-medium text-neutral-700 dark:text-neutral-300 pt-1">
           <label className="inline-flex items-center gap-1.5 cursor-pointer">
             <input type="checkbox" checked={isFeatured} onChange={(e) => setIsFeatured(e.target.checked)} className="accent-[#D62828]" />
             Featured
@@ -524,7 +526,7 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
             <select
               value={comboRole}
               onChange={(e) => setComboRole(e.target.value)}
-              className="border border-neutral-300 rounded-md px-2 py-1 text-xs"
+              className="border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 rounded-md px-2 py-1 text-xs"
             >
               <option value="burger">Combo Burger</option>
               <option value="side">Combo Side</option>
@@ -537,7 +539,7 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
         <button
           type="submit"
           disabled={uploadProgress !== null}
-          className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#D62828] disabled:opacity-60 text-white text-xs font-semibold cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-[#D62828] hover:bg-[#B51E1E] disabled:opacity-60 text-white text-xs font-semibold cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>{editingId ? 'Save Changes' : 'Add Product'}</span>
@@ -545,10 +547,10 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
       </form>
 
       {/* Product Table */}
-      <div className="rounded-xl border border-neutral-200 bg-white overflow-hidden">
+      <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] overflow-hidden transition-colors">
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
-            <thead className="bg-neutral-50 text-xs text-neutral-500 border-b border-neutral-200">
+            <thead className="bg-neutral-50 dark:bg-neutral-900/60 text-xs text-neutral-500 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-800">
               <tr>
                 <th className="px-4 py-3 font-semibold">Product</th>
                 <th className="px-4 py-3 font-semibold">Price</th>
@@ -557,22 +559,22 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                 <th className="px-4 py-3 font-semibold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-100">
+            <tbody className="divide-y divide-neutral-100 dark:divide-neutral-800">
               {products.map((p) => (
                 <React.Fragment key={p.id}>
-                  <tr className="hover:bg-neutral-50">
+                  <tr className="hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <ProductImage src={p.imageUrl} alt={p.name} className="w-11 h-11 rounded-lg object-cover shrink-0" />
                         <div>
-                          <p className="font-semibold text-[#171717]">{p.name}</p>
-                          <p className="text-xs text-neutral-500">
+                          <p className="font-semibold text-[#171717] dark:text-white">{p.name}</p>
+                          <p className="text-xs text-neutral-500 dark:text-neutral-400">
                             {categories.find((c) => c.id === p.categoryId)?.name || 'Menu'}
                           </p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 font-mono font-semibold tabular-nums">
+                    <td className="px-4 py-3 font-mono font-semibold text-[#171717] dark:text-neutral-100 tabular-nums">
                       {formatMoney(p.priceCents, currencySymbol)}
                     </td>
                     <td className="px-4 py-3">
@@ -580,7 +582,9 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                         <button
                           onClick={() => handleToggleProductField(p, 'isFeatured')}
                           className={`px-2 py-0.5 rounded border cursor-pointer ${
-                            p.isFeatured ? 'border-[#171717] bg-[#FFF8ED] font-semibold' : 'border-neutral-200 text-neutral-400'
+                            p.isFeatured
+                              ? 'border-[#171717] dark:border-[#FFC928]/60 bg-[#FFF8ED] dark:bg-[#231B16] text-[#171717] dark:text-[#FFC928] font-semibold'
+                              : 'border-neutral-200 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500'
                           }`}
                         >
                           Featured
@@ -588,7 +592,9 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                         <button
                           onClick={() => handleToggleProductField(p, 'isBestSeller')}
                           className={`px-2 py-0.5 rounded border cursor-pointer ${
-                            p.isBestSeller ? 'border-[#D62828] bg-red-50 text-[#D62828] font-semibold' : 'border-neutral-200 text-neutral-400'
+                            p.isBestSeller
+                              ? 'border-[#D62828] bg-red-50 dark:bg-red-950/40 text-[#D62828] dark:text-red-400 font-semibold'
+                              : 'border-neutral-200 dark:border-neutral-700 text-neutral-400 dark:text-neutral-500'
                           }`}
                         >
                           Best Seller
@@ -599,7 +605,9 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                       <button
                         onClick={() => handleToggleProductField(p, 'isAvailable')}
                         className={`px-2.5 py-1 rounded text-xs font-semibold cursor-pointer ${
-                          p.isAvailable ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-[#D62828]'
+                          p.isAvailable
+                            ? 'bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400'
+                            : 'bg-red-50 dark:bg-red-950/40 text-[#D62828] dark:text-red-400'
                         }`}
                       >
                         {p.isAvailable ? 'Available' : 'Sold Out'}
@@ -608,7 +616,7 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                     <td className="px-4 py-3 text-right space-x-2">
                       <button
                         onClick={() => setOptionProdId(optionProdId === p.id ? null : p.id)}
-                        className="text-xs font-semibold text-neutral-700 hover:underline cursor-pointer"
+                        className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:underline cursor-pointer"
                       >
                         Options ({p.options?.length ?? 0})
                       </button>
@@ -627,13 +635,13 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                           setIsComboEligible(p.isComboEligible);
                           setComboRole(p.comboRole || 'burger');
                         }}
-                        className="text-xs font-semibold text-[#D62828] hover:underline cursor-pointer"
+                        className="text-xs font-semibold text-[#D62828] dark:text-[#FFC928] hover:underline cursor-pointer"
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => handleDeleteProduct(p.id)}
-                        className="text-xs font-semibold text-neutral-400 hover:text-[#D62828] cursor-pointer"
+                        className="text-xs font-semibold text-neutral-400 dark:text-neutral-500 hover:text-[#D62828] dark:hover:text-red-400 cursor-pointer"
                       >
                         Delete
                       </button>
@@ -641,9 +649,9 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                   </tr>
                   {optionProdId === p.id && (
                     <tr>
-                      <td colSpan={5} className="bg-neutral-50 px-6 py-4 border-t border-neutral-200">
+                      <td colSpan={5} className="bg-neutral-50 dark:bg-[#141414] px-6 py-4 border-t border-neutral-200 dark:border-neutral-800">
                         <div className="space-y-3">
-                          <p className="text-xs font-bold uppercase tracking-wider text-[#171717]">
+                          <p className="text-xs font-bold uppercase tracking-wider text-[#171717] dark:text-white">
                             Customizations for {p.name}
                           </p>
                           <div className="flex flex-wrap gap-2">
@@ -654,8 +662,8 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                                   onClick={() => handleToggleCustomization(c.id, c.isAvailable)}
                                   className={`px-3 py-1.5 rounded-lg border text-xs cursor-pointer ${
                                     c.isAvailable
-                                      ? 'bg-white border-neutral-300 text-[#171717]'
-                                      : 'bg-red-50 border-red-200 text-[#D62828] line-through'
+                                      ? 'bg-white dark:bg-[#1A1A1A] border-neutral-300 dark:border-neutral-700 text-[#171717] dark:text-neutral-200'
+                                      : 'bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-900/60 text-[#D62828] dark:text-red-400 line-through'
                                   }`}
                                 >
                                   {o.groupName}: {c.name} (+{formatMoney(c.priceDeltaCents, currencySymbol)})
@@ -670,7 +678,7 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                               value={optGroup}
                               onChange={(e) => setOptGroup(e.target.value)}
                               placeholder="Group (e.g. Cheese Selection)"
-                              className="px-3 py-1.5 rounded-lg border border-neutral-300 bg-white text-xs"
+                              className="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-xs text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                             />
                             <input
                               type="text"
@@ -678,19 +686,19 @@ export const AdminProductsTab: React.FC<{ view: 'products' | 'categories' }> = (
                               value={optName}
                               onChange={(e) => setOptName(e.target.value)}
                               placeholder="Option name (e.g. Smoked Gouda)"
-                              className="px-3 py-1.5 rounded-lg border border-neutral-300 bg-white text-xs"
+                              className="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-xs text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
                             />
                             <input
                               type="number"
                               step="0.01"
                               value={optPriceDollars}
                               onChange={(e) => setOptPriceDollars(e.target.value)}
-                              placeholder="Extra $"
-                              className="w-24 px-3 py-1.5 rounded-lg border border-neutral-300 bg-white text-xs font-mono"
+                              placeholder="Extra ₱"
+                              className="w-24 px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-xs font-mono text-[#171717] dark:text-neutral-100"
                             />
                             <button
                               type="submit"
-                              className="px-3.5 py-1.5 rounded-lg bg-[#171717] text-white text-xs font-semibold cursor-pointer"
+                              className="px-3.5 py-1.5 rounded-lg bg-[#171717] dark:bg-neutral-800 hover:bg-neutral-800 dark:hover:bg-neutral-700 text-white text-xs font-semibold cursor-pointer"
                             >
                               Add Option
                             </button>

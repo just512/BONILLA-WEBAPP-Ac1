@@ -19,9 +19,13 @@ export function getCartSessionId(): string {
   return token;
 }
 
-export function formatMoney(cents: number, symbol = '$'): string {
+export function formatMoney(cents: number, symbol = '₱'): string {
   const safe = Number.isFinite(cents) ? cents : 0;
-  return `${symbol}${(safe / 100).toFixed(2)}`;
+  const formatted = (safe / 100).toLocaleString('en-PH', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  return `${symbol}${formatted}`;
 }
 
 export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {

@@ -1,4 +1,4 @@
-import { Server as HttpServer } from 'node:http';
+import type { Server as HttpServer } from 'node:http';
 import { WebSocket, WebSocketServer } from 'ws';
 import { resolveProfileFromToken } from './auth.ts';
 

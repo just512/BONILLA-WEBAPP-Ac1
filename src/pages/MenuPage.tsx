@@ -65,12 +65,12 @@ export const MenuPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 min-h-[75vh]">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-neutral-200">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-neutral-200 dark:border-neutral-800">
         <div>
-          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#171717]">
+          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#171717] dark:text-white">
             Our Food Menu
           </h1>
-          <p className="text-sm text-neutral-600 mt-1">
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
             Browse every burger, combo, side, shake, and dessert. Click any item to customize.
           </p>
         </div>
@@ -84,15 +84,15 @@ export const MenuPage: React.FC = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search burgers, fries, ingredients..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-[#D62828]"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#141414] text-sm text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-none focus:border-[#D62828]"
             />
           </div>
-          <div className="inline-flex items-center p-1 rounded-xl bg-neutral-100 border border-neutral-200">
+          <div className="inline-flex items-center p-1 rounded-xl bg-neutral-100 dark:bg-[#1A1A1A] border border-neutral-200 dark:border-neutral-800">
             <button
               onClick={() => setLayout('grid')}
               aria-label="Grid layout"
               className={`p-2 rounded-lg cursor-pointer ${
-                layout === 'grid' ? 'bg-white shadow-sm text-[#171717]' : 'text-neutral-500'
+                layout === 'grid' ? 'bg-white dark:bg-neutral-800 shadow-sm text-[#171717] dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
               }`}
             >
               <LayoutGrid className="w-4 h-4" />
@@ -101,7 +101,7 @@ export const MenuPage: React.FC = () => {
               onClick={() => setLayout('list')}
               aria-label="List layout"
               className={`p-2 rounded-lg cursor-pointer ${
-                layout === 'list' ? 'bg-white shadow-sm text-[#171717]' : 'text-neutral-500'
+                layout === 'list' ? 'bg-white dark:bg-neutral-800 shadow-sm text-[#171717] dark:text-white' : 'text-neutral-500 dark:text-neutral-400'
               }`}
             >
               <List className="w-4 h-4" />
@@ -116,8 +116,8 @@ export const MenuPage: React.FC = () => {
           onClick={() => setCategory('all')}
           className={`px-4 py-2 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
             category === 'all'
-              ? 'bg-[#171717] text-white'
-              : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+              ? 'bg-[#171717] dark:bg-[#FFC928] text-white dark:text-[#171717]'
+              : 'bg-neutral-100 dark:bg-[#1A1A1A] text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800'
           }`}
         >
           All Categories
@@ -129,7 +129,7 @@ export const MenuPage: React.FC = () => {
             className={`px-4 py-2 rounded-lg text-xs font-semibold whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
               category === cat.slug
                 ? 'bg-[#D62828] text-white'
-                : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                : 'bg-neutral-100 dark:bg-[#1A1A1A] text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-800'
             }`}
           >
             {cat.name}
@@ -152,14 +152,14 @@ export const MenuPage: React.FC = () => {
               onClick={() => setFilter(f.id)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer ${
                 filter === f.id
-                  ? 'border-[#171717] bg-[#FFF8ED] text-[#171717] font-semibold'
-                  : 'border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300'
+                  ? 'border-[#171717] dark:border-[#FFC928] bg-[#FFF8ED] dark:bg-[#231B16] text-[#171717] dark:text-[#FFC928] font-semibold'
+                  : 'border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] text-neutral-600 dark:text-neutral-300 hover:border-neutral-300 dark:hover:border-neutral-700'
               }`}
             >
               {f.label}
             </button>
           ))}
-          <label className="inline-flex items-center gap-2 ml-2 text-xs font-medium text-neutral-700 cursor-pointer">
+          <label className="inline-flex items-center gap-2 ml-2 text-xs font-medium text-neutral-700 dark:text-neutral-300 cursor-pointer">
             <input
               type="checkbox"
               checked={availableOnly}
@@ -171,11 +171,11 @@ export const MenuPage: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2.5 text-xs">
-          <span className="text-neutral-500 font-medium">Sort by</span>
+          <span className="text-neutral-500 dark:text-neutral-400 font-medium">Sort by</span>
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="border border-neutral-300 rounded-lg px-3 py-1.5 text-xs font-semibold text-[#171717] bg-white"
+            className="border border-neutral-300 dark:border-neutral-700 rounded-lg px-3 py-1.5 text-xs font-semibold text-[#171717] dark:text-neutral-100 bg-white dark:bg-[#141414]"
           >
             <option value="popular">Popularity</option>
             <option value="price_asc">Price: Low to High</option>
@@ -190,13 +190,13 @@ export const MenuPage: React.FC = () => {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3, 4, 5, 6].map((n) => (
-            <div key={n} className="h-96 rounded-2xl bg-neutral-100 animate-pulse" />
+            <div key={n} className="h-96 rounded-2xl bg-neutral-100 dark:bg-neutral-800 animate-pulse" />
           ))}
         </div>
       ) : products.length === 0 ? (
-        <div className="text-center py-20 border border-neutral-200 rounded-2xl bg-neutral-50">
-          <h3 className="font-display text-xl font-bold text-[#171717]">No matching menu items</h3>
-          <p className="text-sm text-neutral-500 mt-1 mb-5">
+        <div className="text-center py-20 border border-neutral-200 dark:border-neutral-800 rounded-2xl bg-neutral-50 dark:bg-[#141414]">
+          <h3 className="font-display text-xl font-bold text-[#171717] dark:text-white">No matching menu items</h3>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1 mb-5">
             Try clearing your search query or switching filters.
           </p>
           <button
@@ -206,7 +206,7 @@ export const MenuPage: React.FC = () => {
               setFilter('all');
               setAvailableOnly(false);
             }}
-            className="px-5 py-2.5 rounded-lg bg-[#171717] text-white text-xs font-semibold cursor-pointer"
+            className="px-5 py-2.5 rounded-lg bg-[#171717] dark:bg-[#D62828] text-white text-xs font-semibold cursor-pointer"
           >
             Reset Filters
           </button>

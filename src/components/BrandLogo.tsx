@@ -36,7 +36,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({ inverted = false }) => {
       </svg>
       <span
         className={`font-display text-xl font-extrabold tracking-tight ${
-          inverted ? 'text-white' : 'text-[#171717]'
+          inverted ? 'text-white' : 'text-[#171717] dark:text-white'
         }`}
       >
         JUST BURGER

@@ -235,12 +235,12 @@ export const CustomerAccountPage: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 min-h-[75vh]">
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-neutral-200 mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-neutral-200 dark:border-neutral-800 mb-8">
         <div>
-          <h1 className="font-display text-3xl font-extrabold text-[#171717]">
+          <h1 className="font-display text-3xl font-extrabold text-[#171717] dark:text-white">
             Hello, {user.fullName}
           </h1>
-          <p className="text-sm text-neutral-500 mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1">
             <span>
               {user.email} · {user.roleName.toUpperCase()} ·{' '}
               {user.emailVerified ? 'Verified Account' : 'Email Unverified'}
@@ -257,7 +257,7 @@ export const CustomerAccountPage: React.FC = () => {
                       showToast(err instanceof Error ? err.message : 'Unable to send email', 'error');
                     }
                   }}
-                  className="text-xs font-semibold text-[#D62828] hover:underline cursor-pointer"
+                  className="text-xs font-semibold text-[#D62828] dark:text-[#FFC928] hover:underline cursor-pointer"
                 >
                   Send Verification Email
                 </button>
@@ -270,7 +270,7 @@ export const CustomerAccountPage: React.FC = () => {
                       verified ? 'success' : 'info'
                     );
                   }}
-                  className="text-xs font-semibold text-neutral-700 hover:underline cursor-pointer"
+                  className="text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:underline cursor-pointer"
                 >
                   Check Status
                 </button>
@@ -282,14 +282,14 @@ export const CustomerAccountPage: React.FC = () => {
           {(user.roleName === 'admin' || user.roleName === 'staff') && (
             <button
               onClick={() => navigate('/admin')}
-              className="px-4 py-2 rounded-xl bg-[#171717] text-[#FFC928] text-xs font-semibold cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[#171717] dark:bg-neutral-800 text-[#FFC928] text-xs font-semibold cursor-pointer"
             >
               Open Operations Dashboard
             </button>
           )}
           <button
             onClick={logout}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-neutral-300 text-xs font-semibold text-neutral-700 hover:text-[#D62828] cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:text-[#D62828] dark:hover:text-red-400 cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>
@@ -309,7 +309,7 @@ export const CustomerAccountPage: React.FC = () => {
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-left transition-colors cursor-pointer ${
                   active
                     ? 'bg-[#D62828] text-white font-semibold'
-                    : 'text-neutral-700 hover:bg-neutral-100'
+                    : 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800'
                 }`}
               >
                 <t.icon className="w-4 h-4 shrink-0" />
@@ -325,13 +325,13 @@ export const CustomerAccountPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <form
                 onSubmit={handleSaveProfile}
-                className="rounded-2xl border border-neutral-200 p-6 space-y-4"
+                className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] p-6 space-y-4"
               >
-                <h2 className="font-display text-lg font-bold text-[#171717]">
+                <h2 className="font-display text-lg font-bold text-[#171717] dark:text-white">
                   Personal Information
                 </h2>
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
                     Full Name
                   </label>
                   <input
@@ -339,18 +339,18 @@ export const CustomerAccountPage: React.FC = () => {
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 text-sm"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
                     Contact Number
                   </label>
                   <input
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 text-sm"
                   />
                 </div>
                 <button
@@ -364,9 +364,9 @@ export const CustomerAccountPage: React.FC = () => {
 
               <form
                 onSubmit={handleChangePassword}
-                className="rounded-2xl border border-neutral-200 p-6 space-y-4"
+                className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] p-6 space-y-4"
               >
-                <h2 className="font-display text-lg font-bold text-[#171717]">
+                <h2 className="font-display text-lg font-bold text-[#171717] dark:text-white">
                   Change Password
                 </h2>
                 <input
@@ -374,7 +374,7 @@ export const CustomerAccountPage: React.FC = () => {
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
                   placeholder="Current password (if set)"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm"
                 />
                 <input
                   type="password"
@@ -383,7 +383,7 @@ export const CustomerAccountPage: React.FC = () => {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="New password (min 8 chars)"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm"
                 />
                 <input
                   type="password"
@@ -391,11 +391,11 @@ export const CustomerAccountPage: React.FC = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Confirm new password"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm"
                 />
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-[#171717] text-white text-xs font-semibold cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-[#171717] dark:bg-neutral-800 hover:bg-neutral-800 dark:hover:bg-neutral-700 text-white text-xs font-semibold cursor-pointer"
                 >
                   Update Password
                 </button>
@@ -405,12 +405,12 @@ export const CustomerAccountPage: React.FC = () => {
 
           {tab === 'orders' && (
             <div className="space-y-4">
-              <h2 className="font-display text-xl font-bold text-[#171717]">
+              <h2 className="font-display text-xl font-bold text-[#171717] dark:text-white">
                 Order History ({orders.length})
               </h2>
               {orders.length === 0 ? (
-                <div className="rounded-2xl border border-neutral-200 p-10 text-center">
-                  <p className="text-sm text-neutral-500 mb-4">You haven&apos;t placed an order yet.</p>
+                <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] p-10 text-center">
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4">You haven&apos;t placed an order yet.</p>
                   <button
                     onClick={() => navigate('/menu')}
                     className="px-5 py-2.5 rounded-xl bg-[#D62828] text-white text-xs font-semibold cursor-pointer"
@@ -422,39 +422,39 @@ export const CustomerAccountPage: React.FC = () => {
                 orders.map((o) => (
                   <div
                     key={o.id}
-                    className="rounded-2xl border border-neutral-200 p-5 bg-white space-y-3"
+                    className="rounded-2xl border border-neutral-200 dark:border-neutral-800 p-5 bg-white dark:bg-[#1A1A1A] space-y-3"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-3">
                       <div>
-                        <p className="font-mono font-bold text-base text-[#171717]">
+                        <p className="font-mono font-bold text-base text-[#171717] dark:text-white">
                           {o.orderNumber}
                         </p>
-                        <p className="text-xs text-neutral-500">
+                        <p className="text-xs text-neutral-500 dark:text-neutral-400">
                           {new Date(o.createdAt).toLocaleString()} · {o.branch?.name || 'Branch'} ·{' '}
-                          <span className="capitalize font-semibold text-[#D62828]">
+                          <span className="capitalize font-semibold text-[#D62828] dark:text-[#FFC928]">
                             {o.status.replace(/_/g, ' ')}
                           </span>
                         </p>
                       </div>
-                      <span className="font-mono text-base font-bold tabular-nums">
+                      <span className="font-mono text-base font-bold tabular-nums text-[#171717] dark:text-[#FFC928]">
                         {formatMoney(o.totalCents, currencySymbol)}
                       </span>
                     </div>
 
-                    <div className="text-xs text-neutral-600">
+                    <div className="text-xs text-neutral-600 dark:text-neutral-400">
                       {(o.items ?? []).map((i) => `${i.quantity}× ${i.productNameSnapshot}`).join(', ')}
                     </div>
 
-                    <div className="pt-3 border-t border-neutral-100 flex items-center gap-3">
+                    <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800 flex items-center gap-3">
                       <button
                         onClick={() => navigate(`/track/${o.orderNumber}`)}
-                        className="px-3.5 py-2 rounded-lg border border-neutral-300 text-xs font-semibold hover:bg-neutral-50 cursor-pointer"
+                        className="px-3.5 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 text-xs font-semibold text-[#171717] dark:text-neutral-200 hover:bg-neutral-50 dark:hover:bg-neutral-800 cursor-pointer"
                       >
                         Track Order
                       </button>
                       <button
                         onClick={() => handleReorder(o.id)}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#171717] text-white text-xs font-semibold hover:bg-neutral-800 cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#171717] dark:bg-neutral-800 text-white text-xs font-semibold hover:bg-neutral-800 dark:hover:bg-neutral-700 cursor-pointer"
                       >
                         <RefreshCw className="w-3.5 h-3.5" />
                         <span>Reorder</span>
@@ -469,21 +469,21 @@ export const CustomerAccountPage: React.FC = () => {
           {tab === 'addresses' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-3">
-                <h2 className="font-display text-xl font-bold text-[#171717]">Saved Addresses</h2>
+                <h2 className="font-display text-xl font-bold text-[#171717] dark:text-white">Saved Addresses</h2>
                 {addresses.length === 0 ? (
-                  <p className="text-sm text-neutral-500">No saved delivery addresses yet.</p>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400">No saved delivery addresses yet.</p>
                 ) : (
                   addresses.map((a) => (
                     <div
                       key={a.id}
-                      className="rounded-xl border border-neutral-200 p-4 flex items-start justify-between gap-3"
+                      className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] p-4 flex items-start justify-between gap-3"
                     >
                       <div className="text-sm">
-                        <p className="font-bold text-[#171717]">
+                        <p className="font-bold text-[#171717] dark:text-white">
                           {a.label} {a.isDefault ? '· Default' : ''}
                         </p>
-                        <p className="text-neutral-700 mt-0.5">{a.streetAddress}</p>
-                        <p className="text-xs text-neutral-500">
+                        <p className="text-neutral-700 dark:text-neutral-300 mt-0.5">{a.streetAddress}</p>
+                        <p className="text-xs text-neutral-500 dark:text-neutral-400">
                           {a.city} · {a.phone}
                         </p>
                       </div>
@@ -500,16 +500,16 @@ export const CustomerAccountPage: React.FC = () => {
 
               <form
                 onSubmit={handleAddAddress}
-                className="rounded-2xl border border-neutral-200 p-6 space-y-3"
+                className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] p-6 space-y-3"
               >
-                <h3 className="font-display text-lg font-bold text-[#171717]">Add New Address</h3>
+                <h3 className="font-display text-lg font-bold text-[#171717] dark:text-white">Add New Address</h3>
                 <input
                   type="text"
                   required
                   value={addrLabel}
                   onChange={(e) => setAddrLabel(e.target.value)}
                   placeholder="Label (Home, Office)"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm"
                 />
                 <input
                   type="text"
@@ -517,7 +517,7 @@ export const CustomerAccountPage: React.FC = () => {
                   value={addrRecipient}
                   onChange={(e) => setAddrRecipient(e.target.value)}
                   placeholder="Recipient Name"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm"
                 />
                 <input
                   type="tel"
@@ -525,7 +525,7 @@ export const CustomerAccountPage: React.FC = () => {
                   value={addrPhone}
                   onChange={(e) => setAddrPhone(e.target.value)}
                   placeholder="Phone Number"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm"
                 />
                 <input
                   type="text"
@@ -533,7 +533,7 @@ export const CustomerAccountPage: React.FC = () => {
                   value={addrStreet}
                   onChange={(e) => setAddrStreet(e.target.value)}
                   placeholder="Street Address, Unit/Building"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm"
                 />
                 <input
                   type="text"
@@ -541,14 +541,14 @@ export const CustomerAccountPage: React.FC = () => {
                   value={addrCity}
                   onChange={(e) => setAddrCity(e.target.value)}
                   placeholder="City"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm"
                 />
                 <input
                   type="text"
                   value={addrNotes}
                   onChange={(e) => setAddrNotes(e.target.value)}
                   placeholder="Delivery Notes (Optional)"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm"
                 />
                 <button
                   type="submit"
@@ -562,11 +562,11 @@ export const CustomerAccountPage: React.FC = () => {
 
           {tab === 'favorites' && (
             <div className="space-y-4">
-              <h2 className="font-display text-xl font-bold text-[#171717]">
+              <h2 className="font-display text-xl font-bold text-[#171717] dark:text-white">
                 Favorite Products ({favorites.length})
               </h2>
               {favorites.length === 0 ? (
-                <p className="text-sm text-neutral-500">
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">
                   Tap the heart icon on any burger on the menu to save it here.
                 </p>
               ) : (
@@ -588,7 +588,7 @@ export const CustomerAccountPage: React.FC = () => {
 
           {tab === 'rewards' && (
             <div className="space-y-6">
-              <div className="rounded-2xl bg-[#171717] text-white p-6 flex flex-wrap items-center justify-between gap-4">
+              <div className="rounded-2xl bg-[#171717] border border-transparent dark:border-neutral-800 text-white p-6 flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold text-[#FFC928] uppercase tracking-wider">
                     JUST Rewards · {loyalty?.account.tierName || 'Flame Member'}
@@ -605,7 +605,7 @@ export const CustomerAccountPage: React.FC = () => {
               </div>
 
               <div>
-                <h3 className="font-display text-lg font-bold text-[#171717] mb-3">
+                <h3 className="font-display text-lg font-bold text-[#171717] dark:text-white mb-3">
                   Redeem Available Offers
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -614,20 +614,20 @@ export const CustomerAccountPage: React.FC = () => {
                     return (
                       <div
                         key={r.id}
-                        className="rounded-xl border border-neutral-200 p-4 flex flex-col justify-between gap-3 bg-[#FFF8ED]"
+                        className="rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 flex flex-col justify-between gap-3 bg-[#FFF8ED] dark:bg-[#191614]"
                       >
                         <div>
-                          <p className="font-mono text-xs font-bold text-[#D62828] tabular-nums">
+                          <p className="font-mono text-xs font-bold text-[#D62828] dark:text-[#FFC928] tabular-nums">
                             {r.pointsCost} pts
                           </p>
-                          <p className="font-display font-bold text-base text-[#171717] mt-1">
+                          <p className="font-display font-bold text-base text-[#171717] dark:text-white mt-1">
                             {r.title}
                           </p>
                         </div>
                         <button
                           disabled={!canRedeem}
                           onClick={() => handleRedeemReward(r.id)}
-                          className="w-full py-2 rounded-lg bg-[#171717] disabled:bg-neutral-300 text-white text-xs font-semibold cursor-pointer"
+                          className="w-full py-2 rounded-lg bg-[#171717] dark:bg-[#D62828] disabled:bg-neutral-300 dark:disabled:bg-neutral-700 text-white text-xs font-semibold cursor-pointer"
                         >
                           {canRedeem ? 'Redeem Voucher' : 'Need More Points'}
                         </button>
@@ -638,24 +638,24 @@ export const CustomerAccountPage: React.FC = () => {
               </div>
 
               <div>
-                <h3 className="font-display text-lg font-bold text-[#171717] mb-3">
+                <h3 className="font-display text-lg font-bold text-[#171717] dark:text-white mb-3">
                   Points History
                 </h3>
                 {(loyalty?.transactions.length ?? 0) === 0 ? (
-                  <p className="text-sm text-neutral-500">No rewards transactions yet.</p>
+                  <p className="text-sm text-neutral-500 dark:text-neutral-400">No rewards transactions yet.</p>
                 ) : (
-                  <div className="border border-neutral-200 rounded-xl divide-y divide-neutral-100">
+                  <div className="border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] rounded-xl divide-y divide-neutral-100 dark:divide-neutral-800">
                     {loyalty?.transactions.map((tx) => (
                       <div key={tx.id} className="p-3.5 flex items-center justify-between text-sm">
                         <div>
-                          <p className="font-medium text-[#171717]">{tx.description}</p>
-                          <p className="text-xs text-neutral-400">
+                          <p className="font-medium text-[#171717] dark:text-neutral-100">{tx.description}</p>
+                          <p className="text-xs text-neutral-400 dark:text-neutral-500">
                             {new Date(tx.createdAt).toLocaleString()}
                           </p>
                         </div>
                         <span
                           className={`font-mono font-bold tabular-nums ${
-                            tx.pointsDelta >= 0 ? 'text-emerald-700' : 'text-[#D62828]'
+                            tx.pointsDelta >= 0 ? 'text-emerald-700 dark:text-emerald-400' : 'text-[#D62828]'
                           }`}
                         >
                           {tx.pointsDelta >= 0 ? `+${tx.pointsDelta}` : tx.pointsDelta} pts
@@ -671,13 +671,13 @@ export const CustomerAccountPage: React.FC = () => {
           {tab === 'notifications' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="font-display text-xl font-bold text-[#171717]">
+                <h2 className="font-display text-xl font-bold text-[#171717] dark:text-white">
                   Notifications ({notifications.length})
                 </h2>
                 {notifications.some((n) => !n.isRead) && (
                   <button
                     onClick={markAllNotificationsRead}
-                    className="text-xs font-semibold text-[#D62828] hover:underline cursor-pointer"
+                    className="text-xs font-semibold text-[#D62828] dark:text-[#FFC928] hover:underline cursor-pointer"
                   >
                     Mark All Read
                   </button>
@@ -685,7 +685,7 @@ export const CustomerAccountPage: React.FC = () => {
               </div>
 
               {notifications.length === 0 ? (
-                <p className="text-sm text-neutral-500">You&apos;re all caught up.</p>
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">You&apos;re all caught up.</p>
               ) : (
                 <div className="space-y-2.5">
                   {notifications.map((n) => (
@@ -696,13 +696,13 @@ export const CustomerAccountPage: React.FC = () => {
                       }}
                       className={`p-4 rounded-xl border cursor-pointer transition-colors ${
                         n.isRead
-                          ? 'bg-white border-neutral-200 text-neutral-600'
-                          : 'bg-[#FFF8ED] border-[#FFC928] text-[#171717]'
+                          ? 'bg-white dark:bg-[#1A1A1A] border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400'
+                          : 'bg-[#FFF8ED] dark:bg-[#231B16] border-[#FFC928] text-[#171717] dark:text-white'
                       }`}
                     >
                       <div className="flex items-center justify-between gap-2">
                         <p className="font-semibold text-sm">{n.title}</p>
-                        <span className="text-xs text-neutral-400">
+                        <span className="text-xs text-neutral-400 dark:text-neutral-500">
                           {new Date(n.createdAt).toLocaleString()}
                         </span>
                       </div>

@@ -47,7 +47,7 @@ export const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:bg-[#0F0F0F] transition-colors duration-200">
       {/* 1. HERO SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-16 lg:py-14">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
@@ -55,10 +55,10 @@ export const HomePage: React.FC = () => {
             <p className="text-xs font-semibold uppercase tracking-widest text-[#D62828] mb-3">
               BIG FLAVOR. NO COMPROMISE.
             </p>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#171717] leading-[1.05] [text-wrap:balance]">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#171717] dark:text-white leading-[1.05] [text-wrap:balance]">
               GOOD BURGERS. GREAT MOMENTS.
             </h1>
-            <p className="mt-5 text-base sm:text-lg text-neutral-600 max-w-xl leading-relaxed">
+            <p className="mt-5 text-base sm:text-lg text-neutral-600 dark:text-neutral-400 max-w-xl leading-relaxed">
               Fresh cravings, bold flavors, and satisfying bites. Your next favorite burger is just a
               few clicks away.
             </p>
@@ -73,24 +73,24 @@ export const HomePage: React.FC = () => {
               </button>
               <button
                 onClick={() => navigate('/combo-builder')}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl border border-neutral-300 hover:border-[#171717] text-[#171717] font-semibold text-sm transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl border border-neutral-300 dark:border-neutral-700 hover:border-[#171717] dark:hover:border-neutral-400 text-[#171717] dark:text-neutral-100 font-semibold text-sm transition-colors cursor-pointer"
               >
                 <span>Build Your Combo</span>
               </button>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-neutral-200 grid grid-cols-3 gap-4 text-sm">
+            <div className="mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-800 grid grid-cols-3 gap-4 text-sm">
               <div>
-                <p className="font-display text-lg font-bold text-[#171717]">100% Angus</p>
-                <p className="text-xs text-neutral-500">Freshly smashed to order</p>
+                <p className="font-display text-lg font-bold text-[#171717] dark:text-white">100% Angus</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">Freshly smashed to order</p>
               </div>
               <div>
-                <p className="font-display text-lg font-bold text-[#171717]">12–15 min</p>
-                <p className="text-xs text-neutral-500">Average grill prep</p>
+                <p className="font-display text-lg font-bold text-[#171717] dark:text-white">12–15 min</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">Average grill prep</p>
               </div>
               <div>
-                <p className="font-display text-lg font-bold text-[#171717]">JUST15</p>
-                <p className="text-xs text-neutral-500">15% off orders $15+</p>
+                <p className="font-display text-lg font-bold text-[#171717] dark:text-white">JUST15</p>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">15% off orders {currencySymbol}840+</p>
               </div>
             </div>
           </div>
@@ -123,20 +123,20 @@ export const HomePage: React.FC = () => {
       </section>
 
       {/* 2. FEATURED CATEGORIES */}
-      <section className="bg-[#FFF8ED] border-y border-amber-100 py-14">
+      <section className="bg-[#FFF8ED] dark:bg-[#161513] border-y border-amber-100 dark:border-neutral-800 py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-end justify-between gap-4 mb-8">
             <div>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717]">
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717] dark:text-white">
                 Explore by Category
               </h2>
-              <p className="text-sm text-neutral-600 mt-1">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
                 From smashed double classics to thick salted caramel shakes.
               </p>
             </div>
             <button
               onClick={() => navigate('/menu')}
-              className="text-sm font-semibold text-[#D62828] hover:underline whitespace-nowrap shrink-0 cursor-pointer"
+              className="text-sm font-semibold text-[#D62828] dark:text-[#FFC928] hover:underline whitespace-nowrap shrink-0 cursor-pointer"
             >
               View Full Menu →
             </button>
@@ -147,9 +147,9 @@ export const HomePage: React.FC = () => {
               <button
                 key={cat.id}
                 onClick={() => navigate(`/menu?category=${encodeURIComponent(cat.slug)}`)}
-                className="group text-left bg-white rounded-xl overflow-hidden border border-amber-200/60 hover:border-[#D62828] transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+                className="group text-left bg-white dark:bg-[#1A1A1A] rounded-xl overflow-hidden border border-amber-200/60 dark:border-neutral-800 hover:border-[#D62828] dark:hover:border-[#D62828] transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
               >
-                <div className="aspect-[4/3] overflow-hidden bg-neutral-100">
+                <div className="aspect-[4/3] overflow-hidden bg-neutral-100 dark:bg-neutral-800">
                   <ProductImage
                     src={cat.imageUrl}
                     alt={cat.name}
@@ -157,7 +157,7 @@ export const HomePage: React.FC = () => {
                   />
                 </div>
                 <div className="p-3">
-                  <h3 className="font-display font-bold text-sm text-[#171717] group-hover:text-[#D62828] truncate">
+                  <h3 className="font-display font-bold text-sm text-[#171717] dark:text-neutral-100 group-hover:text-[#D62828] dark:group-hover:text-[#FFC928] truncate">
                     {cat.name}
                   </h3>
                 </div>
@@ -171,16 +171,16 @@ export const HomePage: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
         <div className="flex items-end justify-between gap-4 mb-8">
           <div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717]">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717] dark:text-white">
               Best Sellers
             </h2>
-            <p className="text-sm text-neutral-600 mt-1">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
               Most-ordered favorites crafted fresh on our flat-top grills.
             </p>
           </div>
           <button
             onClick={() => navigate('/menu?filter=best-sellers')}
-            className="text-sm font-semibold text-[#D62828] hover:underline whitespace-nowrap shrink-0 cursor-pointer"
+            className="text-sm font-semibold text-[#D62828] dark:text-[#FFC928] hover:underline whitespace-nowrap shrink-0 cursor-pointer"
           >
             All Best Sellers →
           </button>
@@ -189,7 +189,7 @@ export const HomePage: React.FC = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3].map((n) => (
-              <div key={n} className="h-96 rounded-2xl bg-neutral-100 animate-pulse" />
+              <div key={n} className="h-96 rounded-2xl bg-neutral-100 dark:bg-neutral-800 animate-pulse" />
             ))}
           </div>
         ) : (
@@ -233,10 +233,10 @@ export const HomePage: React.FC = () => {
       {data?.promotions && data.promotions.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
           <div className="mb-8">
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717]">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717] dark:text-white">
               Special Offers & Promo Codes
             </h2>
-            <p className="text-sm text-neutral-600 mt-1">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
               Apply these active codes directly in your shopping bag at checkout.
             </p>
           </div>
@@ -245,11 +245,11 @@ export const HomePage: React.FC = () => {
             {data.promotions.map((promo) => (
               <div
                 key={promo.id}
-                className="rounded-2xl border border-neutral-200 bg-[#FFF8ED] p-6 flex flex-col justify-between gap-4"
+                className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-[#FFF8ED] dark:bg-[#191614] p-6 flex flex-col justify-between gap-4"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2 text-xs text-neutral-600 mb-2">
-                    <span className="inline-flex items-center gap-1.5 font-semibold text-[#D62828]">
+                  <div className="flex items-center justify-between gap-2 text-xs text-neutral-600 dark:text-neutral-400 mb-2">
+                    <span className="inline-flex items-center gap-1.5 font-semibold text-[#D62828] dark:text-[#FFC928]">
                       <Tag className="w-3.5 h-3.5" />
                       Active Offer
                     </span>
@@ -257,12 +257,12 @@ export const HomePage: React.FC = () => {
                       <span>Min. {formatMoney(promo.minOrderCents, currencySymbol)}</span>
                     )}
                   </div>
-                  <h3 className="font-display text-xl font-bold text-[#171717]">{promo.title}</h3>
-                  <p className="text-sm text-neutral-600 mt-1.5">{promo.description}</p>
+                  <h3 className="font-display text-xl font-bold text-[#171717] dark:text-white">{promo.title}</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1.5">{promo.description}</p>
                 </div>
 
-                <div className="pt-4 border-t border-amber-200/70 flex items-center justify-between gap-3">
-                  <code className="font-mono text-sm font-bold text-[#171717] bg-white px-3 py-1.5 rounded-lg border border-amber-200">
+                <div className="pt-4 border-t border-amber-200/70 dark:border-neutral-800 flex items-center justify-between gap-3">
+                  <code className="font-mono text-sm font-bold text-[#171717] dark:text-[#FFC928] bg-white dark:bg-[#121212] px-3 py-1.5 rounded-lg border border-amber-200 dark:border-neutral-700">
                     {promo.code}
                   </code>
                   <button
@@ -271,7 +271,7 @@ export const HomePage: React.FC = () => {
                       showToast(`Code ${promo.code} copied — apply it in your bag!`, 'success');
                       navigate('/menu');
                     }}
-                    className="text-xs font-semibold text-[#D62828] hover:underline cursor-pointer"
+                    className="text-xs font-semibold text-[#D62828] dark:text-[#FFC928] hover:underline cursor-pointer"
                   >
                     Copy & Order →
                   </button>
@@ -283,10 +283,10 @@ export const HomePage: React.FC = () => {
       )}
 
       {/* 6. WHY CHOOSE JUST BURGER & HOW IT WORKS */}
-      <section className="border-t border-neutral-200 bg-neutral-50 py-16">
+      <section className="border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-[#141414] py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-16">
           <div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717] mb-8">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717] dark:text-white mb-8">
               Why Choose JUST BURGER
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -314,20 +314,20 @@ export const HomePage: React.FC = () => {
               ].map((item) => (
                 <div
                   key={item.title}
-                  className="bg-white rounded-2xl border border-neutral-200 p-6 space-y-3"
+                  className="bg-white dark:bg-[#1A1A1A] rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 space-y-3"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-[#FFF8ED] text-[#D62828] flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-[#FFF8ED] dark:bg-[#231B16] text-[#D62828] flex items-center justify-center">
                     <item.icon className="w-5 h-5" />
                   </div>
-                  <h3 className="font-display font-bold text-base text-[#171717]">{item.title}</h3>
-                  <p className="text-sm text-neutral-600 leading-relaxed">{item.desc}</p>
+                  <h3 className="font-display font-bold text-base text-[#171717] dark:text-white">{item.title}</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
           <div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717] mb-8">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717] dark:text-white mb-8">
               How It Works
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -337,10 +337,10 @@ export const HomePage: React.FC = () => {
                 { step: '03.', title: 'Place Your Order', desc: 'Pick your branch, select pickup or delivery, and pay securely.' },
                 { step: '04.', title: 'Enjoy Your Meal', desc: 'Track your burger live from grill to pickup counter or door.' },
               ].map((s) => (
-                <div key={s.step} className="pt-4 border-t-2 border-[#171717]">
-                  <span className="font-mono text-xs font-bold text-[#D62828]">{s.step}</span>
-                  <h3 className="font-display font-bold text-lg text-[#171717] mt-1">{s.title}</h3>
-                  <p className="text-sm text-neutral-600 mt-1.5">{s.desc}</p>
+                <div key={s.step} className="pt-4 border-t-2 border-[#171717] dark:border-neutral-700">
+                  <span className="font-mono text-xs font-bold text-[#D62828] dark:text-[#FFC928]">{s.step}</span>
+                  <h3 className="font-display font-bold text-lg text-[#171717] dark:text-white mt-1">{s.title}</h3>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1.5">{s.desc}</p>
                 </div>
               ))}
             </div>
@@ -352,16 +352,16 @@ export const HomePage: React.FC = () => {
       {data?.reviews && data.reviews.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
           <div className="mb-8">
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717]">
+            <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#171717] dark:text-white">
               Verified Guest Reviews
             </h2>
-            <p className="text-sm text-neutral-600 mt-1">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
               Real feedback from JUST BURGER diners across our branches.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {data.reviews.slice(0, 3).map((rev) => (
-              <div key={rev.id} className="rounded-2xl border border-neutral-200 p-6 bg-white flex flex-col justify-between gap-4">
+              <div key={rev.id} className="rounded-2xl border border-neutral-200 dark:border-neutral-800 p-6 bg-white dark:bg-[#1A1A1A] flex flex-col justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-1 text-[#FFC928] mb-3">
                     {Array.from({ length: rev.rating }).map((_, idx) => (
@@ -369,14 +369,14 @@ export const HomePage: React.FC = () => {
                     ))}
                   </div>
                   {rev.title && (
-                    <h3 className="font-display font-bold text-base text-[#171717] mb-1.5">
+                    <h3 className="font-display font-bold text-base text-[#171717] dark:text-white mb-1.5">
                       {rev.title}
                     </h3>
                   )}
-                  <p className="text-sm text-neutral-600 leading-relaxed">{rev.comment}</p>
+                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{rev.comment}</p>
                 </div>
-                <div className="pt-3 border-t border-neutral-100 text-xs text-neutral-500 flex items-center justify-between">
-                  <span className="font-semibold text-[#171717]">{rev.authorName}</span>
+                <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800 text-xs text-neutral-500 dark:text-neutral-400 flex items-center justify-between">
+                  <span className="font-semibold text-[#171717] dark:text-neutral-200">{rev.authorName}</span>
                   <span>
                     {rev.productName}
                     {rev.isVerifiedPurchase ? ' · Verified Order' : ''}

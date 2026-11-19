@@ -15,6 +15,20 @@
     />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.ico" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('jb_theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (stored === 'dark' || (!stored && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -22,7 +36,7 @@
       rel="stylesheet"
     />
   </head>
-  <body class="bg-white text-[#171717] antialiased selection:bg-[#D62828] selection:text-white">
+  <body class="bg-white text-[#171717] dark:bg-[#0F0F0F] dark:text-neutral-100 antialiased selection:bg-[#D62828] selection:text-white transition-colors duration-200">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

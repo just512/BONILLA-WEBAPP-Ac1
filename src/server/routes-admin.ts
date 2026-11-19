@@ -26,7 +26,8 @@ import {
   staffAccounts,
   storeSettings,
 } from '../db/schema.ts';
-import { AuthRequest, hashPassword, requireAdmin, requireStaffOrAdmin } from './auth.ts';
+import { hashPassword, requireAdmin, requireStaffOrAdmin } from './auth.ts';
+import type { AuthRequest } from './auth.ts';
 import { realtimeHub } from './realtime.ts';
 
 export const adminRouter = Router();
@@ -792,8 +793,8 @@ adminRouter.post('/admin/branches', requireAdmin, async (req, res) => {
       operatingHours,
       supportsPickup = true,
       supportsDelivery = true,
-      deliveryFeeCents = 299,
-      minOrderCents = 1000,
+      deliveryFeeCents = 16700,
+      minOrderCents = 56000,
     } = req.body ?? {};
     if (!name || !address || !city || !phone) {
       return res.status(400).json({ error: 'Branch name, address, city, and phone are required.' });

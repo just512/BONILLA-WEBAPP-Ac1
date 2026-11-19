@@ -29,6 +29,9 @@ interface ToastMessage {
 }
 
 interface AppContextValue {
+  theme: 'light' | 'dark';
+  setTheme: (theme: 'light' | 'dark') => void;
+  toggleTheme: () => void;
   route: string;
   navigate: (to: string) => void;
   user: UserProfile | null;
@@ -89,6 +92,18 @@ interface AppContextValue {
 const AppContext = createContext<AppContextValue | null>(null);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [theme, setThemeState] = useState<'light' | 'dark'>(() => {
+    if (typeof document !== 'undefined' && document.documentElement.classList.contains('dark')) {
+      return 'dark';
+    }
+    try {
+      const stored = localStorage.getItem('jb_theme');
+      if (stored === 'dark' || stored === 'light') return stored;
+    } catch {
+      // ignore storage errors
+    }
+    return 'light';
+  });
   const [route, setRoute] = useState<string>(() => window.location.pathname + window.location.search);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [authReady, setAuthReady] = useState(false);
@@ -103,6 +118,23 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [lastRealtimeEvent, setLastRealtimeEvent] = useState<{ type: string; payload: unknown } | null>(null);
   const wsRef = useRef<WebSocket | null>(null);
   const manualAuthFlowRef = useRef(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    try {
+      localStorage.setItem('jb_theme', theme);
+    } catch {
+      // ignore storage errors
+    }
+  }, [theme]);
+
+  const setTheme = useCallback((next: 'light' | 'dark') => {
+    setThemeState(next);
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  }, []);
 
   const showToast = useCallback((text: string, type: 'success' | 'error' | 'info' = 'info') => {
     const id = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -514,11 +546,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const unreadCount = notifications.filter((n) => !n.isRead).length;
-  const currencySymbol = settings.business_info?.currencySymbol || '$';
+  const currencySymbol = settings.business_info?.currencySymbol || '₱';
 
   return (
     <AppContext.Provider
       value={{
+        theme,
+        setTheme,
+        toggleTheme,
         route,
         navigate,
         user,
@@ -566,10 +601,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             role="status"
             className={`pointer-events-auto rounded-lg px-4 py-3 text-sm font-medium shadow-lg border transition-all duration-200 ${
               t.type === 'error'
-                ? 'bg-[#171717] text-white border-[#D62828]'
+                ? 'bg-[#171717] dark:bg-[#1E1E1E] text-white border-[#D62828]'
                 : t.type === 'success'
-                  ? 'bg-[#171717] text-white border-[#FFC928]'
-                  : 'bg-white text-[#171717] border-neutral-200'
+                  ? 'bg-[#171717] dark:bg-[#1E1E1E] text-white border-[#FFC928]'
+                  : 'bg-white dark:bg-[#1E1E1E] text-[#171717] dark:text-neutral-100 border-neutral-200 dark:border-neutral-700'
             }`}
           >
             {t.text}

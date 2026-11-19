@@ -159,29 +159,29 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
   };
 
   return (
-    <div className="min-h-[78vh] bg-[#FFF8ED] py-12 px-4 flex items-center justify-center">
-      <div className="w-full max-w-md bg-white rounded-2xl border border-neutral-200 shadow-lg p-7 sm:p-8 space-y-6">
+    <div className="min-h-[78vh] bg-[#FFF8ED] dark:bg-[#121110] py-12 px-4 flex items-center justify-center transition-colors duration-200">
+      <div className="w-full max-w-md bg-white dark:bg-[#1A1A1A] rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg p-7 sm:p-8 space-y-6">
         {pendingRedirect && (
-          <div className="rounded-xl bg-[#FFF8ED] border border-amber-200 px-4 py-3 text-xs font-medium text-[#171717]">
+          <div className="rounded-xl bg-[#FFF8ED] dark:bg-[#231B16] border border-amber-200 dark:border-amber-900/50 px-4 py-3 text-xs font-medium text-[#171717] dark:text-neutral-100">
             Sign in or create an account to continue to checkout with your saved bag.
           </div>
         )}
 
         {pendingVerifyUserRole ? (
           <div className="space-y-4 text-center py-3">
-            <div className="w-12 h-12 rounded-2xl bg-[#FFF8ED] border border-amber-200 flex items-center justify-center mx-auto text-[#D62828]">
+            <div className="w-12 h-12 rounded-2xl bg-[#FFF8ED] dark:bg-[#231B16] border border-amber-200 dark:border-amber-900/50 flex items-center justify-center mx-auto text-[#D62828]">
               <Mail className="w-6 h-6" />
             </div>
-            <h1 className="font-display text-2xl font-extrabold text-[#171717]">
+            <h1 className="font-display text-2xl font-extrabold text-[#171717] dark:text-white">
               Verify Your Email
             </h1>
-            <p className="text-sm text-neutral-600 leading-relaxed">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
               Your JUST BURGER account is active. We sent a verification link to{' '}
-              <span className="font-semibold text-[#171717]">{email}</span>. Click the link in your
+              <span className="font-semibold text-[#171717] dark:text-white">{email}</span>. Click the link in your
               inbox, then confirm below.
             </p>
             {errorMsg && (
-              <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-xs font-medium text-[#D62828] text-left">
+              <div className="rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 px-4 py-3 text-xs font-medium text-[#D62828] dark:text-red-400 text-left">
                 {errorMsg}
               </div>
             )}
@@ -197,7 +197,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
               type="button"
               onClick={handleResendVerification}
               disabled={loading}
-              className="w-full py-2.5 rounded-xl border border-neutral-300 text-xs font-semibold text-neutral-700 hover:bg-neutral-50 flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-semibold text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Resend Verification Email</span>
@@ -205,7 +205,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
             <button
               type="button"
               onClick={() => finishAuthNavigation(pendingVerifyUserRole)}
-              className="w-full py-2 text-xs text-neutral-500 hover:text-[#171717] cursor-pointer"
+              className="w-full py-2 text-xs text-neutral-500 dark:text-neutral-400 hover:text-[#171717] dark:hover:text-white cursor-pointer"
             >
               Continue to Account Now
             </button>
@@ -213,14 +213,14 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
         ) : (
           <>
             <div>
-              <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#171717]">
+              <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-[#171717] dark:text-white">
                 {mode === 'signin'
                   ? 'Welcome Back'
                   : mode === 'signup'
                     ? 'Create Your Account'
                     : 'Reset Your Password'}
               </h1>
-              <p className="text-sm text-neutral-600 mt-1">
+              <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
                 {mode === 'signin'
                   ? 'Sign in to place orders, track deliveries, and earn JUST Rewards.'
                   : mode === 'signup'
@@ -230,7 +230,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
             </div>
 
             {errorMsg && (
-              <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-xs font-medium text-[#D62828]">
+              <div className="rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 px-4 py-3 text-xs font-medium text-[#D62828] dark:text-red-400">
                 {errorMsg}
               </div>
             )}
@@ -241,7 +241,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                   type="button"
                   onClick={handleGoogleSignIn}
                   disabled={loading}
-                  className="w-full py-3 px-4 rounded-xl border border-neutral-300 bg-white hover:bg-neutral-50 text-sm font-semibold text-[#171717] flex items-center justify-center gap-2.5 transition-colors cursor-pointer"
+                  className="w-full py-3 px-4 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#141414] hover:bg-neutral-50 dark:hover:bg-neutral-800 text-sm font-semibold text-[#171717] dark:text-neutral-100 flex items-center justify-center gap-2.5 transition-colors cursor-pointer"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">
                     <path
@@ -265,9 +265,9 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                 </button>
 
                 <div className="relative flex items-center py-1">
-                  <div className="flex-grow border-t border-neutral-200" />
-                  <span className="shrink mx-3 text-xs text-neutral-400">or with email</span>
-                  <div className="flex-grow border-t border-neutral-200" />
+                  <div className="flex-grow border-t border-neutral-200 dark:border-neutral-800" />
+                  <span className="shrink mx-3 text-xs text-neutral-400 dark:text-neutral-500">or with email</span>
+                  <div className="flex-grow border-t border-neutral-200 dark:border-neutral-800" />
                 </div>
               </>
             )}
@@ -275,7 +275,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
             {mode === 'signin' && (
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
                     Email Address
                   </label>
                   <div className="relative">
@@ -286,13 +286,13 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="you@example.com"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-[#D62828]"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#D62828]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
                     Password
                   </label>
                   <div className="relative">
@@ -303,13 +303,13 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
-                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-[#D62828]"
+                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#D62828]"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword((s) => !s)}
                       aria-label={showPassword ? 'Hide password' : 'Show password'}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 cursor-pointer"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -317,7 +317,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                 </div>
 
                 <div className="flex items-center justify-between text-xs">
-                  <label className="inline-flex items-center gap-2 text-neutral-600 cursor-pointer">
+                  <label className="inline-flex items-center gap-2 text-neutral-600 dark:text-neutral-400 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={rememberMe}
@@ -329,7 +329,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                   <button
                     type="button"
                     onClick={() => navigate('/auth/forgot-password')}
-                    className="font-semibold text-[#D62828] hover:underline cursor-pointer"
+                    className="font-semibold text-[#D62828] dark:text-[#FFC928] hover:underline cursor-pointer"
                   >
                     Forgot password?
                   </button>
@@ -343,12 +343,12 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                   {loading ? 'Signing In...' : 'Sign In'}
                 </button>
 
-                <p className="text-center text-xs text-neutral-600 pt-2">
+                <p className="text-center text-xs text-neutral-600 dark:text-neutral-400 pt-2">
                   New to JUST BURGER?{' '}
                   <button
                     type="button"
                     onClick={() => navigate('/auth/signup')}
-                    className="font-semibold text-[#D62828] hover:underline cursor-pointer"
+                    className="font-semibold text-[#D62828] dark:text-[#FFC928] hover:underline cursor-pointer"
                   >
                     Create Account
                   </button>
@@ -359,7 +359,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
             {mode === 'signup' && (
               <form onSubmit={handleSignUp} className="space-y-3.5">
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
                     Full Name
                   </label>
                   <div className="relative">
@@ -370,13 +370,13 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       placeholder="Alex Rivera"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-[#D62828]"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#D62828]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
                     Email Address
                   </label>
                   <div className="relative">
@@ -387,13 +387,13 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="alex@example.com"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-[#D62828]"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#D62828]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
                     Contact Number
                   </label>
                   <div className="relative">
@@ -404,13 +404,13 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="(555) 123-4567"
-                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-[#D62828]"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#D62828]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
                     Password (min. 8 characters)
                   </label>
                   <div className="relative">
@@ -422,12 +422,12 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Create a strong password"
-                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-[#D62828]"
+                      className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#D62828]"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword((s) => !s)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-200 cursor-pointer"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </button>
@@ -435,7 +435,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                  <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
                     Confirm Password
                   </label>
                   <input
@@ -444,7 +444,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Re-enter password"
-                    className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-[#D62828]"
+                    className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#D62828]"
                   />
                 </div>
 
@@ -456,12 +456,12 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                   {loading ? 'Creating Account...' : 'Create Account'}
                 </button>
 
-                <p className="text-center text-xs text-neutral-600 pt-1">
+                <p className="text-center text-xs text-neutral-600 dark:text-neutral-400 pt-1">
                   Already have an account?{' '}
                   <button
                     type="button"
                     onClick={() => navigate('/auth/signin')}
-                    className="font-semibold text-[#D62828] hover:underline cursor-pointer"
+                    className="font-semibold text-[#D62828] dark:text-[#FFC928] hover:underline cursor-pointer"
                   >
                     Sign In
                   </button>
@@ -472,9 +472,9 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
             {mode === 'forgot' && (
               <div className="space-y-4">
                 {resetEmailSent ? (
-                  <div className="rounded-xl bg-[#FFF8ED] border border-amber-200 p-4 space-y-2 text-sm text-[#171717]">
+                  <div className="rounded-xl bg-[#FFF8ED] dark:bg-[#231B16] border border-amber-200 dark:border-amber-900/50 p-4 space-y-2 text-sm text-[#171717] dark:text-white">
                     <p className="font-semibold">Reset Link Dispatched</p>
-                    <p className="text-xs text-neutral-600 leading-relaxed">
+                    <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
                       If an account exists for <span className="font-semibold">{email}</span>, a
                       password reset email has been sent. Open the link in your inbox to choose a
                       new password.
@@ -483,7 +483,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                 ) : (
                   <form onSubmit={handleForgotSubmit} className="space-y-4">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-700 mb-1">
+                      <label className="block text-xs font-semibold text-neutral-700 dark:text-neutral-300 mb-1">
                         Account Email Address
                       </label>
                       <input
@@ -492,13 +492,13 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@example.com"
-                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-[#D62828]"
+                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 text-sm focus:outline-none focus:border-[#D62828]"
                       />
                     </div>
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full py-3 rounded-xl bg-[#171717] hover:bg-neutral-800 text-white font-semibold text-sm cursor-pointer"
+                      className="w-full py-3 rounded-xl bg-[#171717] dark:bg-[#D62828] hover:bg-neutral-800 dark:hover:bg-[#B51E1E] text-white font-semibold text-sm cursor-pointer"
                     >
                       {loading ? 'Sending Reset Link...' : 'Send Password Reset Email'}
                     </button>
@@ -510,7 +510,7 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
                     setResetEmailSent(false);
                     navigate('/auth/signin');
                   }}
-                  className="w-full text-xs text-neutral-600 hover:underline cursor-pointer"
+                  className="w-full text-xs text-neutral-600 dark:text-neutral-400 hover:underline cursor-pointer"
                 >
                   Back to Sign In
                 </button>

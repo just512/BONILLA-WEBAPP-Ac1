@@ -181,19 +181,19 @@ export const Footer: React.FC = () => {
       {/* Policy Modal */}
       {policyModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-          <div className="bg-white text-[#171717] rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-neutral-200 pb-3">
+          <div className="bg-white dark:bg-[#1A1A1A] text-[#171717] dark:text-neutral-100 border border-transparent dark:border-neutral-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-3">
               <h3 className="font-display text-xl font-bold">
                 {policyModal === 'privacy' ? 'Privacy Policy' : 'Terms & Conditions'}
               </h3>
               <button
                 onClick={() => setPolicyModal(null)}
-                className="p-1.5 rounded-lg hover:bg-neutral-100 cursor-pointer"
+                className="p-1.5 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="text-sm text-neutral-600 space-y-3 max-h-80 overflow-y-auto leading-relaxed">
+            <div className="text-sm text-neutral-600 dark:text-neutral-300 space-y-3 max-h-80 overflow-y-auto leading-relaxed">
               {policyModal === 'privacy' ? (
                 <>
                   <p>

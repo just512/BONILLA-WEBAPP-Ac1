@@ -122,21 +122,21 @@ export const ComboBuilderPage: React.FC = () => {
   if (loading) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-        <div className="h-[520px] rounded-2xl bg-neutral-100 animate-pulse" />
+        <div className="h-[520px] rounded-2xl bg-neutral-100 dark:bg-neutral-800 animate-pulse" />
       </div>
     );
   }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-      <div className="pb-6 border-b border-neutral-200 mb-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-[#D62828] mb-1">
+      <div className="pb-6 border-b border-neutral-200 dark:border-neutral-800 mb-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#D62828] dark:text-[#FFC928] mb-1">
           Save 10% Automatically
         </p>
-        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#171717]">
+        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#171717] dark:text-white">
           Build Your Own Combo
         </h1>
-        <p className="text-sm text-neutral-600 mt-1">
+        <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
           Pick one burger, one crispy side, one craft drink, and optional sweet or savory add-ons.
         </p>
       </div>
@@ -146,7 +146,7 @@ export const ComboBuilderPage: React.FC = () => {
         <div className="lg:col-span-8 space-y-10">
           {/* Step 1: Burger */}
           <section className="space-y-4">
-            <h2 className="font-display text-xl font-bold text-[#171717]">
+            <h2 className="font-display text-xl font-bold text-[#171717] dark:text-white">
               01. Choose Your Burger
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -159,8 +159,8 @@ export const ComboBuilderPage: React.FC = () => {
                     onClick={() => handleSelectBurger(b.id)}
                     className={`flex items-center gap-4 p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                       active
-                        ? 'border-[#D62828] bg-[#FFF8ED] shadow-sm'
-                        : 'border-neutral-200 bg-white hover:border-neutral-400'
+                        ? 'border-[#D62828] bg-[#FFF8ED] dark:bg-[#231B16] shadow-sm'
+                        : 'border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] hover:border-neutral-400 dark:hover:border-neutral-600'
                     }`}
                   >
                     <ProductImage
@@ -169,11 +169,11 @@ export const ComboBuilderPage: React.FC = () => {
                       className="w-20 h-20 rounded-xl object-cover shrink-0"
                     />
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-display font-bold text-sm text-[#171717] truncate">
+                      <h3 className="font-display font-bold text-sm text-[#171717] dark:text-white truncate">
                         {b.name}
                       </h3>
-                      <p className="text-xs text-neutral-500 mt-0.5 line-clamp-2">{b.description}</p>
-                      <p className="font-mono text-xs font-bold text-[#D62828] mt-1.5 tabular-nums">
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5 line-clamp-2">{b.description}</p>
+                      <p className="font-mono text-xs font-bold text-[#D62828] dark:text-[#FFC928] mt-1.5 tabular-nums">
                         {formatMoney(b.priceCents, currencySymbol)}
                       </p>
                     </div>
@@ -184,8 +184,8 @@ export const ComboBuilderPage: React.FC = () => {
 
             {/* Optional Burger Toppings */}
             {selectedBurger?.options && selectedBurger.options.length > 0 && (
-              <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-5 space-y-4">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-700">
+              <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-[#141414] p-5 space-y-4">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300">
                   Customize {selectedBurger.name} (Optional)
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -200,10 +200,10 @@ export const ComboBuilderPage: React.FC = () => {
                           onClick={() => toggleBurgerCust(cust.id, cust.isAvailable)}
                           className={`flex items-center justify-between px-3 py-2 rounded-lg border text-xs transition-colors ${
                             !cust.isAvailable
-                              ? 'bg-neutral-100 text-neutral-400 border-neutral-200 cursor-not-allowed'
+                              ? 'bg-neutral-100 dark:bg-neutral-900 text-neutral-400 dark:text-neutral-600 border-neutral-200 dark:border-neutral-800 cursor-not-allowed'
                               : checked
-                                ? 'bg-white border-[#D62828] text-[#171717] font-semibold cursor-pointer'
-                                : 'bg-white border-neutral-200 text-neutral-700 hover:border-neutral-400 cursor-pointer'
+                                ? 'bg-white dark:bg-[#231B16] border-[#D62828] text-[#171717] dark:text-white font-semibold cursor-pointer'
+                                : 'bg-white dark:bg-[#1A1A1A] border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-600 cursor-pointer'
                           }`}
                         >
                           <span className="truncate">{cust.name}</span>
@@ -212,7 +212,7 @@ export const ComboBuilderPage: React.FC = () => {
                               ? 'N/A'
                               : cust.priceDeltaCents > 0
                                 ? `+${formatMoney(cust.priceDeltaCents, currencySymbol)}`
-                                : '$0.00'}
+                                : `${currencySymbol}0.00`}
                           </span>
                         </button>
                       );
@@ -225,7 +225,7 @@ export const ComboBuilderPage: React.FC = () => {
 
           {/* Step 2: Side Dish */}
           <section className="space-y-4">
-            <h2 className="font-display text-xl font-bold text-[#171717]">
+            <h2 className="font-display text-xl font-bold text-[#171717] dark:text-white">
               02. Choose Your Side Dish
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -238,8 +238,8 @@ export const ComboBuilderPage: React.FC = () => {
                     onClick={() => setSideId(s.id)}
                     className={`flex items-center gap-4 p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                       active
-                        ? 'border-[#D62828] bg-[#FFF8ED]'
-                        : 'border-neutral-200 bg-white hover:border-neutral-400'
+                        ? 'border-[#D62828] bg-[#FFF8ED] dark:bg-[#231B16]'
+                        : 'border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] hover:border-neutral-400 dark:hover:border-neutral-600'
                     }`}
                   >
                     <ProductImage
@@ -248,8 +248,8 @@ export const ComboBuilderPage: React.FC = () => {
                       className="w-16 h-16 rounded-xl object-cover shrink-0"
                     />
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-display font-bold text-sm text-[#171717]">{s.name}</h3>
-                      <p className="font-mono text-xs font-bold text-[#D62828] mt-1 tabular-nums">
+                      <h3 className="font-display font-bold text-sm text-[#171717] dark:text-white">{s.name}</h3>
+                      <p className="font-mono text-xs font-bold text-[#D62828] dark:text-[#FFC928] mt-1 tabular-nums">
                         {formatMoney(s.priceCents, currencySymbol)}
                       </p>
                     </div>
@@ -261,7 +261,7 @@ export const ComboBuilderPage: React.FC = () => {
 
           {/* Step 3: Drink */}
           <section className="space-y-4">
-            <h2 className="font-display text-xl font-bold text-[#171717]">
+            <h2 className="font-display text-xl font-bold text-[#171717] dark:text-white">
               03. Choose Your Drink
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -274,8 +274,8 @@ export const ComboBuilderPage: React.FC = () => {
                     onClick={() => setDrinkId(d.id)}
                     className={`flex items-center gap-4 p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                       active
-                        ? 'border-[#D62828] bg-[#FFF8ED]'
-                        : 'border-neutral-200 bg-white hover:border-neutral-400'
+                        ? 'border-[#D62828] bg-[#FFF8ED] dark:bg-[#231B16]'
+                        : 'border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] hover:border-neutral-400 dark:hover:border-neutral-600'
                     }`}
                   >
                     <ProductImage
@@ -284,8 +284,8 @@ export const ComboBuilderPage: React.FC = () => {
                       className="w-16 h-16 rounded-xl object-cover shrink-0"
                     />
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-display font-bold text-sm text-[#171717]">{d.name}</h3>
-                      <p className="font-mono text-xs font-bold text-[#D62828] mt-1 tabular-nums">
+                      <h3 className="font-display font-bold text-sm text-[#171717] dark:text-white">{d.name}</h3>
+                      <p className="font-mono text-xs font-bold text-[#D62828] dark:text-[#FFC928] mt-1 tabular-nums">
                         {formatMoney(d.priceCents, currencySymbol)}
                       </p>
                     </div>
@@ -298,7 +298,7 @@ export const ComboBuilderPage: React.FC = () => {
           {/* Step 4: Optional Add-ons */}
           {data && data.addons.length > 0 && (
             <section className="space-y-4">
-              <h2 className="font-display text-xl font-bold text-[#171717]">
+              <h2 className="font-display text-xl font-bold text-[#171717] dark:text-white">
                 04. Optional Add-Ons
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -311,21 +311,21 @@ export const ComboBuilderPage: React.FC = () => {
                       onClick={() => toggleAddon(a.id)}
                       className={`flex items-center justify-between p-3.5 rounded-xl border text-left cursor-pointer ${
                         checked
-                          ? 'border-[#D62828] bg-[#FFF8ED]'
-                          : 'border-neutral-200 bg-white hover:border-neutral-400'
+                          ? 'border-[#D62828] bg-[#FFF8ED] dark:bg-[#231B16]'
+                          : 'border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#1A1A1A] hover:border-neutral-400 dark:hover:border-neutral-600'
                       }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <span
                           className={`w-4 h-4 rounded flex items-center justify-center border shrink-0 ${
-                            checked ? 'bg-[#D62828] border-[#D62828] text-white' : 'border-neutral-300'
+                            checked ? 'bg-[#D62828] border-[#D62828] text-white' : 'border-neutral-300 dark:border-neutral-600'
                           }`}
                         >
                           {checked && <Check className="w-3 h-3" />}
                         </span>
-                        <span className="text-sm font-medium text-[#171717] truncate">{a.name}</span>
+                        <span className="text-sm font-medium text-[#171717] dark:text-neutral-100 truncate">{a.name}</span>
                       </div>
-                      <span className="font-mono text-xs font-bold text-[#171717] ml-2 tabular-nums">
+                      <span className="font-mono text-xs font-bold text-[#171717] dark:text-[#FFC928] ml-2 tabular-nums">
                         +{formatMoney(a.priceCents, currencySymbol)}
                       </span>
                     </button>
@@ -337,7 +337,7 @@ export const ComboBuilderPage: React.FC = () => {
         </div>
 
         {/* Right Sticky Live Summary */}
-        <aside className="lg:col-span-4 lg:sticky lg:top-24 rounded-2xl border border-neutral-200 bg-[#171717] text-white p-6 space-y-5 shadow-xl">
+        <aside className="lg:col-span-4 lg:sticky lg:top-24 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-[#171717] text-white p-6 space-y-5 shadow-xl">
           <div>
             <p className="text-xs font-semibold text-[#FFC928] uppercase tracking-wider">
               Live Combo Summary
