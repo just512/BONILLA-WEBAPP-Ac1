@@ -49,7 +49,7 @@ interface AppContextValue {
   loginWithGoogle: () => Promise<UserProfile>;
   resendVerificationEmail: () => Promise<void>;
   syncEmailVerification: () => Promise<boolean>;
-  sendPasswordReset: (email: string) => Promise<void>;
+  sendPasswordReset: (email: string) => Promise<{ message: string; resetTokenPreview?: string }>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<UserProfile | null>;
   cart: CartState | null;
@@ -307,8 +307,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         typeof fbErr === 'object' && fbErr !== null && 'code' in fbErr
           ? String((fbErr as { code?: unknown }).code)
           : '';
-      // Fallback for DB-seeded/admin-created staff accounts that do not have a Firebase password credential
+      // Fallback to server scrypt auth when Firebase Email/Password is disabled or account lives in DB
       if (
+        code === 'auth/operation-not-allowed' ||
+        code === 'auth/admin-restricted-operation' ||
         code === 'auth/invalid-credential' ||
         code === 'auth/user-not-found' ||
         code === 'auth/wrong-password'
@@ -322,7 +324,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           setUser(data.user);
           await Promise.all([refreshCart(), refreshNotifications()]);
           return data.user;
-        } catch {
+        } catch (backendErr: unknown) {
+          if (code === 'auth/operation-not-allowed' || code === 'auth/admin-restricted-operation') {
+            throw new Error(
+              backendErr instanceof Error ? backendErr.message : 'Invalid email or password.'
+            );
+          }
+          if (backendErr instanceof Error && backendErr.message.includes('Google Sign-In')) {
+            throw backendErr;
+          }
           throw new Error(mapFirebaseAuthError(fbErr));
         }
       }
@@ -385,6 +395,31 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       await Promise.all([refreshCart(), refreshNotifications()]);
       return { user: data.user, verificationEmailSent };
     } catch (err: unknown) {
+      const code =
+        typeof err === 'object' && err !== null && 'code' in err
+          ? String((err as { code?: unknown }).code)
+          : '';
+      // Fallback to server scrypt registration when Firebase Email/Password provider is disabled
+      if (code === 'auth/operation-not-allowed' || code === 'auth/admin-restricted-operation') {
+        const data = await apiFetch<{
+          token: string;
+          user: UserProfile;
+          verificationToken?: string;
+        }>('/api/auth/register', {
+          method: 'POST',
+          body: JSON.stringify({
+            fullName: cleanName,
+            email: cleanEmail,
+            phone: cleanPhone,
+            password: payload.password,
+            confirmPassword: payload.confirmPassword,
+          }),
+        });
+        setInMemoryAuthToken(data.token);
+        setUser(data.user);
+        await Promise.all([refreshCart(), refreshNotifications()]);
+        return { user: data.user, verificationEmailSent: false };
+      }
       throw new Error(mapFirebaseAuthError(err));
     } finally {
       manualAuthFlowRef.current = false;
@@ -445,7 +480,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
     try {
       await sendPasswordResetEmail(auth, cleanEmail);
+      return { message: 'Password reset link sent to your email address.' };
     } catch (err: unknown) {
+      const code =
+        typeof err === 'object' && err !== null && 'code' in err
+          ? String((err as { code?: unknown }).code)
+          : '';
+      if (code === 'auth/operation-not-allowed' || code === 'auth/admin-restricted-operation') {
+        return await apiFetch<{ message: string; resetTokenPreview?: string }>(
+          '/api/auth/forgot-password',
+          {
+            method: 'POST',
+            body: JSON.stringify({ email: cleanEmail }),
+          }
+        );
+      }
       throw new Error(mapFirebaseAuthError(err));
     }
   };

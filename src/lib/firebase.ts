@@ -31,10 +31,23 @@ export function mapFirebaseAuthError(err: unknown): string {
       return 'Too many attempts. Please wait a moment and try again.';
     case 'auth/popup-closed-by-user':
       return 'Sign-in popup was closed before completing.';
+    case 'auth/popup-blocked':
+      return 'Sign-in popup was blocked by your browser. Please allow popups and try again.';
+    case 'auth/cancelled-popup-request':
+      return 'Sign-in request was cancelled. Please try again.';
+    case 'auth/unauthorized-domain':
+      return 'This app domain is not authorized for Google Sign-In yet. Please use Email & Password or add this domain in Firebase Auth settings.';
+    case 'auth/operation-not-allowed':
+    case 'auth/admin-restricted-operation':
+      return 'This sign-in method is not enabled in Firebase Authentication for this project.';
+    case 'auth/account-exists-with-different-credential':
+      return 'An account already exists with this email using a different sign-in method.';
     case 'auth/requires-recent-login':
       return 'For security, please sign out and sign back in before changing your password.';
     case 'auth/network-request-failed':
       return 'Network error while contacting authentication service. Check your connection.';
+    case 'auth/internal-error':
+      return 'Authentication service encountered an unexpected error. Please try again.';
     default:
       return err instanceof Error ? err.message : 'Authentication failed. Please try again.';
   }

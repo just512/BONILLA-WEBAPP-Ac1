@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Eye, EyeOff, Lock, Mail, Phone, RefreshCw, User } from 'lucide-react';
 import { useApp } from '../context/AppContext.tsx';
+import { apiFetch } from '../lib/api.ts';
 
 export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ mode }) => {
   const {
@@ -29,6 +30,18 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
   // Firebase email verification & password reset state
   const [pendingVerifyUserRole, setPendingVerifyUserRole] = useState<string | null>(null);
   const [resetEmailSent, setResetEmailSent] = useState(false);
+  const [resetTokenInput, setResetTokenInput] = useState('');
+  const [resetNewPassword, setResetNewPassword] = useState('');
+  const [resetConfirmPassword, setResetConfirmPassword] = useState('');
+
+  useEffect(() => {
+    setErrorMsg('');
+    setPendingVerifyUserRole(null);
+    setResetEmailSent(false);
+    setResetTokenInput('');
+    setResetNewPassword('');
+    setResetConfirmPassword('');
+  }, [mode]);
 
   const finishAuthNavigation = (roleName: string) => {
     if (pendingRedirect) {
@@ -79,16 +92,11 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
         password,
         confirmPassword,
       });
-      if (!res.user.emailVerified) {
+      if (!res.user.emailVerified && res.verificationEmailSent) {
         setPendingVerifyUserRole(res.user.roleName);
-        showToast(
-          res.verificationEmailSent
-            ? 'Account created! Verification email sent to your inbox.'
-            : 'Account created! You can continue to your account.',
-          'success'
-        );
+        showToast('Account created! Verification email sent to your inbox.', 'success');
       } else {
-        showToast('Account created and verified!', 'success');
+        showToast('Account created! Welcome to JUST BURGER.', 'success');
         finishAuthNavigation(res.user.roleName);
       }
     } catch (err: unknown) {
@@ -148,11 +156,44 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
     setErrorMsg('');
     setLoading(true);
     try {
-      await sendPasswordReset(email);
+      const res = await sendPasswordReset(email);
+      if (res.resetTokenPreview) {
+        setResetTokenInput(res.resetTokenPreview);
+      }
       setResetEmailSent(true);
-      showToast('Password reset link sent to your email address.', 'success');
+      showToast(res.message || 'Password reset link sent to your email address.', 'success');
     } catch (err: unknown) {
       setErrorMsg(err instanceof Error ? err.message : 'Password reset failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResetConfirm = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg('');
+    if (resetNewPassword.length < 8) {
+      setErrorMsg('New password must be at least 8 characters.');
+      return;
+    }
+    if (resetNewPassword !== resetConfirmPassword) {
+      setErrorMsg('Passwords do not match.');
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await apiFetch<{ message: string }>('/api/auth/reset-password', {
+        method: 'POST',
+        body: JSON.stringify({
+          token: resetTokenInput,
+          newPassword: resetNewPassword,
+          confirmPassword: resetConfirmPassword,
+        }),
+      });
+      showToast(res.message, 'success');
+      navigate('/auth/signin');
+    } catch (err: unknown) {
+      setErrorMsg(err instanceof Error ? err.message : 'Unable to reset password.');
     } finally {
       setLoading(false);
     }
@@ -230,7 +271,10 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
             </div>
 
             {errorMsg && (
-              <div className="rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 px-4 py-3 text-xs font-medium text-[#D62828] dark:text-red-400">
+              <div
+                role="alert"
+                className="rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 px-4 py-3 text-xs font-medium text-[#D62828] dark:text-red-400"
+              >
                 {errorMsg}
               </div>
             )}
@@ -472,14 +516,58 @@ export const AuthPages: React.FC<{ mode: 'signin' | 'signup' | 'forgot' }> = ({ 
             {mode === 'forgot' && (
               <div className="space-y-4">
                 {resetEmailSent ? (
-                  <div className="rounded-xl bg-[#FFF8ED] dark:bg-[#231B16] border border-amber-200 dark:border-amber-900/50 p-4 space-y-2 text-sm text-[#171717] dark:text-white">
-                    <p className="font-semibold">Reset Link Dispatched</p>
-                    <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                      If an account exists for <span className="font-semibold">{email}</span>, a
-                      password reset email has been sent. Open the link in your inbox to choose a
-                      new password.
-                    </p>
-                  </div>
+                  resetTokenInput ? (
+                    <form onSubmit={handleResetConfirm} className="space-y-3.5">
+                      <div className="rounded-xl bg-[#FFF8ED] dark:bg-[#231B16] border border-amber-200 dark:border-amber-900/50 p-4 space-y-1.5 text-sm text-[#171717] dark:text-white">
+                        <p className="font-semibold">Reset Code Ready</p>
+                        <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                          Enter a new password for <span className="font-semibold">{email}</span> using
+                          the verification code below.
+                        </p>
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        value={resetTokenInput}
+                        onChange={(e) => setResetTokenInput(e.target.value)}
+                        placeholder="Reset code"
+                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 font-mono text-sm uppercase focus:outline-none focus:border-[#D62828]"
+                      />
+                      <input
+                        type="password"
+                        required
+                        minLength={8}
+                        value={resetNewPassword}
+                        onChange={(e) => setResetNewPassword(e.target.value)}
+                        placeholder="New password (min. 8 characters)"
+                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 text-sm focus:outline-none focus:border-[#D62828]"
+                      />
+                      <input
+                        type="password"
+                        required
+                        value={resetConfirmPassword}
+                        onChange={(e) => setResetConfirmPassword(e.target.value)}
+                        placeholder="Confirm new password"
+                        className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-[#121212] text-[#171717] dark:text-neutral-100 text-sm focus:outline-none focus:border-[#D62828]"
+                      />
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full py-3 rounded-xl bg-[#D62828] hover:bg-[#B51E1E] text-white font-semibold text-sm cursor-pointer"
+                      >
+                        {loading ? 'Updating Password...' : 'Set New Password'}
+                      </button>
+                    </form>
+                  ) : (
+                    <div className="rounded-xl bg-[#FFF8ED] dark:bg-[#231B16] border border-amber-200 dark:border-amber-900/50 p-4 space-y-2 text-sm text-[#171717] dark:text-white">
+                      <p className="font-semibold">Reset Link Dispatched</p>
+                      <p className="text-xs text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                        If an account exists for <span className="font-semibold">{email}</span>, a
+                        password reset email has been sent. Open the link in your inbox to choose a
+                        new password.
+                      </p>
+                    </div>
+                  )
                 ) : (
                   <form onSubmit={handleForgotSubmit} className="space-y-4">
                     <div>

@@ -265,8 +265,14 @@ publicRouter.post('/auth/login', async (req, res) => {
 
     const rows = await db.select().from(profiles).where(eq(profiles.email, cleanEmail)).limit(1);
     const user = rows[0];
-    if (!user || !user.passwordHash) {
+    if (!user) {
       return res.status(401).json({ error: 'Invalid email or password.' });
+    }
+    if (!user.passwordHash) {
+      return res.status(401).json({
+        error:
+          "This account was created with Google Sign-In. Click 'Continue with Google' or use 'Forgot password?' to set a password.",
+      });
     }
     if (!user.isActive) {
       return res.status(403).json({ error: 'This account has been deactivated. Contact support.' });
